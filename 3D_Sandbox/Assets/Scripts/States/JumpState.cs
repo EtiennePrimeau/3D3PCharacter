@@ -26,29 +26,29 @@ public class JumpState : CharacterState
 
     private void AddForceFromInputs()
     {
-        float inputForward = 0.0f;
-        float inputRight = 0.0f;
+        Vector2 inputs = Vector2.zero;
 
         if (Input.GetKey(KeyCode.W))
         {
-            inputForward += 1;
+            inputs.y += 1;
         }
         if (Input.GetKey(KeyCode.S))
         {
-            inputForward -= 1;
+            inputs.y -= 1;
         }
         if (Input.GetKey(KeyCode.A))
         {
-            inputRight -= 1;
+            inputs.x -= 1;
         }
         if (Input.GetKey(KeyCode.D))
         {
-            inputRight += 1;
+            inputs.x += 1;
         }
+        inputs.Normalize();
 
-        m_stateMachine.Rb.AddForce(inputForward * m_stateMachine.ForwardVectorForPlayer * m_stateMachine.SlowedDownAccelerationValue,
+        m_stateMachine.Rb.AddForce(inputs.y * m_stateMachine.ForwardVectorForPlayer * m_stateMachine.SlowedDownAccelerationValue,
                 ForceMode.Acceleration);
-        m_stateMachine.Rb.AddForce(inputRight * m_stateMachine.RightVectorForPlayer * m_stateMachine.SlowedDownAccelerationValue,
+        m_stateMachine.Rb.AddForce(inputs.x * m_stateMachine.RightVectorForPlayer * m_stateMachine.SlowedDownAccelerationValue,
                 ForceMode.Acceleration);
     }
 
@@ -64,6 +64,10 @@ public class JumpState : CharacterState
 
     public override bool CanEnter()
     {
+        if (!m_stateMachine.IsInContactWithFloor())
+        {
+            return false;
+        }
         return Input.GetKeyDown(KeyCode.Space);
     }
     public override bool CanExit()

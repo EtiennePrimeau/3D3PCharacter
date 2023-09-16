@@ -102,7 +102,7 @@ public class CharacterController : MonoBehaviour
         RightVectorForPlayer = Vector3.Normalize(RightVectorForPlayer);
 
         //Forward direction independent from camera height
-        Debug.DrawRay(transform.position, ForwardVectorForPlayer * 3.0f, Color.green);
+        //Debug.DrawRay(transform.position, ForwardVectorForPlayer * 3.0f, Color.green);
     }
 
     private void TryTransitionningState()
@@ -132,6 +132,7 @@ public class CharacterController : MonoBehaviour
 
     public bool IsInContactWithFloor()
     {
+        //Debug.Log("CC: " + m_groundCollider.IsGrounded);
         return m_groundCollider.IsGrounded;
     }
 
@@ -166,9 +167,14 @@ public class CharacterController : MonoBehaviour
         Animator.SetTrigger("Jump");
     }
 
+    public void TriggerGettingHitAnimation()
+    {
+        Animator.SetTrigger("GettingHit");
+    }
+
     public bool IsTouchingGround()
     {
-        Debug.Log(m_groundCollider.TouchingGround);
+        //Debug.Log(m_groundCollider.TouchingGround);
         return m_groundCollider.TouchingGround;
     }
 

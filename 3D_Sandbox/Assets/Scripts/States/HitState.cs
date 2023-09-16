@@ -12,6 +12,11 @@ public class HitState : CharacterState
         Debug.Log("Entering HitState");
 
         m_currentStateTimer = STATE_EXIT_TIMER;
+
+        Vector3 hitDir = new Vector3(-1, 0, 0);
+        m_stateMachine.Rb.AddForce(hitDir * 100, ForceMode.Impulse); //Could be in enemy
+
+        m_stateMachine.TriggerGettingHitAnimation();
     }
 
     public override void OnUpdate()
@@ -26,29 +31,29 @@ public class HitState : CharacterState
 
     private void AddForceFromInputs()
     {
-        float inputForward = 0.0f;
-        float inputRight = 0.0f;
+        Vector2 inputs = Vector2.zero;
 
         if (Input.GetKey(KeyCode.W))
         {
-            inputForward += 1;
+            inputs.y += 1;
         }
         if (Input.GetKey(KeyCode.S))
         {
-            inputForward -= 1;
+            inputs.y -= 1;
         }
         if (Input.GetKey(KeyCode.A))
         {
-            inputRight -= 1;
+            inputs.x -= 1;
         }
         if (Input.GetKey(KeyCode.D))
         {
-            inputRight += 1;
+            inputs.x += 1;
         }
+        inputs.Normalize();
 
-        m_stateMachine.Rb.AddForce(inputForward * m_stateMachine.ForwardVectorForPlayer * m_stateMachine.SlowedDownAccelerationValue,
+        m_stateMachine.Rb.AddForce(inputs.y * m_stateMachine.ForwardVectorForPlayer * m_stateMachine.SlowedDownAccelerationValue,
                 ForceMode.Acceleration);
-        m_stateMachine.Rb.AddForce(inputRight * m_stateMachine.RightVectorForPlayer * m_stateMachine.SlowedDownAccelerationValue,
+        m_stateMachine.Rb.AddForce(inputs.x * m_stateMachine.RightVectorForPlayer * m_stateMachine.SlowedDownAccelerationValue,
                 ForceMode.Acceleration);
     }
 

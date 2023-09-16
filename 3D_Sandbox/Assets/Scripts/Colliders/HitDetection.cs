@@ -10,7 +10,7 @@ public class HitDetection : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.layer == 6)
+        if (other.gameObject.tag == "EnemyHit")
         {
             Debug.Log("Hit Enemy");
             HasBeenHit = true;
