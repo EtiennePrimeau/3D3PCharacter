@@ -3,8 +3,8 @@ using UnityEngine;
 
 public class JumpState : CharacterState
 {
-    private const float STATE_EXIT_TIMER = 0.2f;
-    private float m_currentStateTimer = 0.0f;
+    private const float GROUNDCHECK_DELAY_TIMER = 0.5f;
+    private float m_currentGCDelayTimer = 0.0f;
 
 
     public override void OnEnter()
@@ -12,9 +12,9 @@ public class JumpState : CharacterState
         Debug.Log("Entering JumpState");
 
         m_stateMachine.Rb.AddForce(Vector3.up * m_stateMachine.JumpAccelerationValue,
-                ForceMode.Acceleration);
+                ForceMode.Acceleration); //TODO: fonction dans le stateMachine 
 
-        m_currentStateTimer = STATE_EXIT_TIMER;
+        m_currentGCDelayTimer = GROUNDCHECK_DELAY_TIMER;
 
         m_stateMachine.TriggerJumpAnimation();
     }
@@ -54,7 +54,7 @@ public class JumpState : CharacterState
 
     public override void OnUpdate()
     {
-        m_currentStateTimer -= Time.deltaTime;
+        m_currentGCDelayTimer -= Time.deltaTime;
     }
 
     public override void OnExit()
@@ -62,17 +62,26 @@ public class JumpState : CharacterState
         Debug.Log("Exiting JumpState");
     }
 
-    public override bool CanEnter()
+    public override bool CanEnter(IState currentState)
     {
-        if (!m_stateMachine.IsInContactWithFloor())
+        if (currentState is FreeState ||
+            currentState is HitState)
         {
-            return false;
+            if (!m_stateMachine.IsInContactWithFloor())
+            {
+                return false;
+            }
+            return Input.GetKeyDown(KeyCode.Space);
         }
-        return Input.GetKeyDown(KeyCode.Space);
+        return false;
     }
     public override bool CanExit()
     {
-        return m_currentStateTimer <= 0;
+        if (m_currentGCDelayTimer <= 0)
+        {
+            return m_stateMachine.IsInContactWithFloor() || m_stateMachine.HasBeenHit();
+        }
+        return false;
     }
 
 }

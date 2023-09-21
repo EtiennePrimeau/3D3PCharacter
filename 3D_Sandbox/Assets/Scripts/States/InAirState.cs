@@ -1,28 +1,11 @@
 using UnityEngine;
 
-public class HitState : CharacterState
+public class InAirState : CharacterState
 {
-    private const float STATE_EXIT_TIMER = 1.0f;
-    private float m_currentStateTimer = 0.0f;
-
-
-
     public override void OnEnter()
     {
-        Debug.Log("Entering HitState");
+        Debug.Log("Entering InAirState");
 
-        m_currentStateTimer = STATE_EXIT_TIMER;
-
-        Vector3 hitDir = new Vector3(-1, 0, 0);
-        m_stateMachine.Rb.AddForce(hitDir * 100, ForceMode.Impulse); //Could be in enemy
-
-        m_stateMachine.TriggerGettingHitAnimation();
-    }
-
-    public override void OnUpdate()
-    {
-        m_currentStateTimer -= Time.deltaTime;
-        //Debug.Log(m_currentStateTimer);
     }
 
     public override void OnFixedUpdate()
@@ -58,24 +41,25 @@ public class HitState : CharacterState
                 ForceMode.Acceleration);
     }
 
+    public override void OnUpdate()
+    {
+    }
+
     public override void OnExit()
     {
-        Debug.Log("Exiting HitState");
+        Debug.Log("Exiting InAirState");
     }
 
     public override bool CanEnter(IState currentState)
     {
-        if (currentState is FreeState ||
-            currentState is JumpState)
+        if (currentState is FreeState)
         {
-            return m_stateMachine.HasBeenHit();
+            return !m_stateMachine.IsInContactWithFloor();
         }
         return false;
     }
-
     public override bool CanExit()
     {
-        return m_currentStateTimer <= 0;
+        return m_stateMachine.IsInContactWithFloor();
     }
-
 }

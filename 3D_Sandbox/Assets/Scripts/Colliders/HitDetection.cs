@@ -4,13 +4,13 @@ public class HitDetection : MonoBehaviour
 {
     public bool HasBeenHit { get; private set; } = false;
 
-    private const float HIT_EXIT_TIMER = 1.0f;
+    private const float HIT_EXIT_TIMER = 0.01f;
     private float m_currentTimer = 0.0f;
     private bool m_activeTimer = false;
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "EnemyHit")
+        if (other.gameObject.tag == "EnemyHit" && HasBeenHit == false)
         {
             Debug.Log("Hit Enemy");
             HasBeenHit = true;

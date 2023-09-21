@@ -14,14 +14,15 @@ public class GroundDetection : MonoBehaviour
     {
         if (!IsGrounded)
         {
-            Debug.Log("Touching ground");
+            //Debug.Log("Touching ground");
         }
+        //Debug.Log("IsGrounded");
         IsGrounded = true;
     }
 
     private void OnTriggerExit(Collider other)
     {
-        Debug.Log("Leaving ground");
+        //Debug.Log("Leaving ground");
         IsGrounded = false;
         TouchingGround = false;
     }

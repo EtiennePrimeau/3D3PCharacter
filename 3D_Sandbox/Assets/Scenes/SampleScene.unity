@@ -3770,10 +3770,30 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1297182384921850008, guid: 4f2a5f98965e73a42982f87ccd14a42a,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 3286309908536389257, guid: 4f2a5f98965e73a42982f87ccd14a42a,
         type: 3}
       propertyPath: m_Name
       value: Enemy_Hit
+      objectReference: {fileID: 0}
+    - target: {fileID: 3369840704045298408, guid: 4f2a5f98965e73a42982f87ccd14a42a,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.956
+      objectReference: {fileID: 0}
+    - target: {fileID: 3816552939268167003, guid: 4f2a5f98965e73a42982f87ccd14a42a,
+        type: 3}
+      propertyPath: m_Radius
+      value: 0.35090888
+      objectReference: {fileID: 0}
+    - target: {fileID: 3816552939268167003, guid: 4f2a5f98965e73a42982f87ccd14a42a,
+        type: 3}
+      propertyPath: m_Center.y
+      value: -0.0474405
       objectReference: {fileID: 0}
     - target: {fileID: 3816552939268167003, guid: 4f2a5f98965e73a42982f87ccd14a42a,
         type: 3}

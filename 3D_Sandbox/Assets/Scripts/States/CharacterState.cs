@@ -27,7 +27,7 @@ public abstract class CharacterState : IState
     {
     }
 
-    public virtual bool CanEnter()
+    public virtual bool CanEnter(IState currentState)
     {
         return true;
     }

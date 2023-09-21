@@ -19,9 +19,6 @@ public class FreeState : CharacterState
 
         CapMaximumSpeed();
 
-        float forwardComponent = Vector3.Dot(m_stateMachine.Rb.velocity, m_stateMachine.ForwardVectorForPlayer); 
-        float lateralComponent = Vector3.Dot(m_stateMachine.Rb.velocity, m_stateMachine.RightVectorForPlayer); 
-        m_stateMachine.UpdateAnimatorValues(new Vector2(lateralComponent, forwardComponent)); // Exemple
 
         //Debug.Log(m_stateMachine.Rb.velocity.magnitude);
     }
@@ -138,6 +135,13 @@ public class FreeState : CharacterState
 
     public override void OnUpdate()
     {
+        SendAnimatorValuesToSM();
+    }
+    private void SendAnimatorValuesToSM()
+    {
+        float forwardComponent = Vector3.Dot(m_stateMachine.Rb.velocity, m_stateMachine.ForwardVectorForPlayer); 
+        float lateralComponent = Vector3.Dot(m_stateMachine.Rb.velocity, m_stateMachine.RightVectorForPlayer); 
+        m_stateMachine.UpdateAnimatorValues(new Vector2(lateralComponent, forwardComponent)); 
     }
 
     public override void OnExit()
@@ -145,9 +149,15 @@ public class FreeState : CharacterState
         Debug.Log("Exiting FreeState");
     }
 
-    public override bool CanEnter()
+    public override bool CanEnter(IState currentState)
     {
-        return m_stateMachine.IsInContactWithFloor();
+        if (currentState is JumpState ||
+            currentState is HitState ||
+            currentState is InAirState)
+        {
+            return m_stateMachine.IsInContactWithFloor();
+        }
+        return false;
     }
     public override bool CanExit()
     {

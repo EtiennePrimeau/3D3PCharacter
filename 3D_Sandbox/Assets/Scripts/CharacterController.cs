@@ -39,13 +39,12 @@ public class CharacterController : MonoBehaviour
         m_possibleStates.Add(new FreeState());
         m_possibleStates.Add(new JumpState());
         m_possibleStates.Add(new HitState());
+        m_possibleStates.Add(new InAirState());
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        //Rb = GetComponentInParent<Rigidbody>();
-
         foreach (CharacterState state in m_possibleStates)
         {
             state.OnStart(this);
@@ -58,17 +57,18 @@ public class CharacterController : MonoBehaviour
     void Update()
     {
         m_currentState.OnUpdate();
-
         TryTransitionningState();
 
         SetForwardVectorFromGroundNormal();
+
+        SetIsGroundedAnimationBool();
+        SetTouchingGroundAnimationBool();
     }
 
     private void FixedUpdate()
     {
         m_currentState.OnFixedUpdate();
 
-        SetTouchingGroundAnimationBool();
     }
 
     private void SetForwardVectorFromGroundNormal()
@@ -117,7 +117,7 @@ public class CharacterController : MonoBehaviour
             {
                 continue;
             }
-            if (state.CanEnter())
+            if (state.CanEnter(m_currentState))
             {
                 //Quitter state actuel
                 m_currentState.OnExit();
@@ -136,12 +136,18 @@ public class CharacterController : MonoBehaviour
         return m_groundCollider.IsGrounded;
     }
 
+    public bool IsTouchingGround()
+    {
+        //Debug.Log(m_groundCollider.TouchingGround);
+        return m_groundCollider.TouchingGround;
+    }
+
     public bool HasBeenHit()
     {
         return m_hitDetection.HasBeenHit;
     }
 
-    public void UpdateAnimatorValues(Vector2 movement)
+    public void UpdateAnimatorValues(Vector2 movement) // UpdateAnimatorMovementValues
     {
         //Envoyer la velocity prise ds les states a cette fonction
         //pour qu'elle envoie à l'Animator
@@ -172,19 +178,14 @@ public class CharacterController : MonoBehaviour
         Animator.SetTrigger("GettingHit");
     }
 
-    public bool IsTouchingGround()
-    {
-        //Debug.Log(m_groundCollider.TouchingGround);
-        return m_groundCollider.TouchingGround;
-    }
 
-    public void SetTouchingGroundAnimationBool()
+    private void SetTouchingGroundAnimationBool()
     {
         Animator.SetBool("TouchingGround", IsTouchingGround());
     }
-    
-    public void SetTouchingGroundAnimationBoolToFalse()
+
+    private void SetIsGroundedAnimationBool()
     {
-        Animator.SetBool("TouchingGround", false);
+        Animator.SetBool("IsGrounded", IsInContactWithFloor());
     }
 }
