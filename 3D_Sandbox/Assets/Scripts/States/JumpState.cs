@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 
@@ -6,6 +7,8 @@ public class JumpState : CharacterState
     private const float GROUNDCHECK_DELAY_TIMER = 0.5f;
     private float m_currentGCDelayTimer = 0.0f;
 
+    //private const float HIGHEST_NO_DAMAGE_FALL = 
+    private float m_highestPositionY;
 
     public override void OnEnter()
     {
@@ -15,6 +18,7 @@ public class JumpState : CharacterState
                 ForceMode.Acceleration); //TODO: fonction dans le stateMachine 
 
         m_currentGCDelayTimer = GROUNDCHECK_DELAY_TIMER;
+        m_highestPositionY = m_stateMachine.Rb.transform.position.y;
 
         m_stateMachine.TriggerJumpAnimation();
     }
@@ -22,6 +26,7 @@ public class JumpState : CharacterState
     public override void OnFixedUpdate()
     {
         AddForceFromInputs();
+        CheckForFallDamage();
     }
 
     private void AddForceFromInputs()
@@ -52,6 +57,26 @@ public class JumpState : CharacterState
                 ForceMode.Acceleration);
     }
 
+    private void CheckForFallDamage()
+    {
+        //Record y position
+        float currentY = m_stateMachine.Rb.transform.position.y;
+        //if y goes up, keep recording
+        if (currentY > m_highestPositionY)
+        {
+            m_highestPositionY = currentY;
+            return;
+        }
+        //if y goes down, record difference between highestY and currentY
+        float differenceY = m_highestPositionY - currentY;
+        //if difference is more than MaxFall, SetIsStunnedToTrue
+        if (differenceY >= CharacterController.MAX_NO_DAMAGE_FALL)
+        {
+            m_stateMachine.SetIsStunnedToTrue();
+            Debug.Log("Fall damage");
+        }
+    }
+
     public override void OnUpdate()
     {
         m_currentGCDelayTimer -= Time.deltaTime;
@@ -64,8 +89,7 @@ public class JumpState : CharacterState
 
     public override bool CanEnter(IState currentState)
     {
-        if (currentState is FreeState ||
-            currentState is HitState)
+        if (currentState is FreeState)
         {
             if (!m_stateMachine.IsInContactWithFloor())
             {
@@ -79,7 +103,9 @@ public class JumpState : CharacterState
     {
         if (m_currentGCDelayTimer <= 0)
         {
-            return m_stateMachine.IsInContactWithFloor() || m_stateMachine.HasBeenHit();
+            return m_stateMachine.IsInContactWithFloor() || 
+                m_stateMachine.HasBeenHit() || 
+                m_stateMachine.HasBeenStunned();
         }
         return false;
     }

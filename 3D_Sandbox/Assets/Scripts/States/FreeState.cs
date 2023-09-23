@@ -153,7 +153,9 @@ public class FreeState : CharacterState
     {
         if (currentState is JumpState ||
             currentState is HitState ||
-            currentState is InAirState)
+            currentState is InAirState ||
+            currentState is StunnedState ||
+            currentState is AttackState)
         {
             return m_stateMachine.IsInContactWithFloor();
         }

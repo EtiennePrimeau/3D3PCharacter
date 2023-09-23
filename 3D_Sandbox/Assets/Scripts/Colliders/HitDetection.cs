@@ -3,6 +3,7 @@ using UnityEngine;
 public class HitDetection : MonoBehaviour
 {
     public bool HasBeenHit { get; private set; } = false;
+    public bool HasBeenStunned { get; private set; } = false;
 
     private const float HIT_EXIT_TIMER = 0.01f;
     private float m_currentTimer = 0.0f;
@@ -10,10 +11,17 @@ public class HitDetection : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "EnemyHit" && HasBeenHit == false)
+        if (other.gameObject.GetComponentInParent<EnemyHit>() != null && HasBeenHit == false)
         {
-            Debug.Log("Hit Enemy");
+            Debug.Log("Enemy Hit");
             HasBeenHit = true;
+            m_activeTimer = true;
+            m_currentTimer = HIT_EXIT_TIMER;
+        }
+        if (other.gameObject.GetComponentInParent<EnemyStun>() != null && HasBeenStunned == false)
+        {
+            Debug.Log("Enemy Stun");
+            HasBeenStunned = true;
             m_activeTimer = true;
             m_currentTimer = HIT_EXIT_TIMER;
         }
@@ -26,6 +34,7 @@ public class HitDetection : MonoBehaviour
             if (m_currentTimer <= 0)
             {
                 HasBeenHit = false;
+                HasBeenStunned = false;
                 m_activeTimer = false;
                 Debug.Log("Timer done");
                 return;

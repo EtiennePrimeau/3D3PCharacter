@@ -1997,6 +1997,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Camera>k__BackingField: {fileID: 0}
+  <Rb>k__BackingField: {fileID: 8121768423090973350}
+  <Animator>k__BackingField: {fileID: 6810933406089656008}
   <AccelerationValue>k__BackingField: 20
   <JumpAccelerationValue>k__BackingField: 300
   <SlowedDownAccelerationValue>k__BackingField: 7
@@ -2004,8 +2006,7 @@ MonoBehaviour:
   <LateralMaxVelocity>k__BackingField: 4
   <BackwardMaxVelocity>k__BackingField: 2
   <SlowingVelocity>k__BackingField: 0.97
-  <Rb>k__BackingField: {fileID: 8121768423090973350}
-  <Animator>k__BackingField: {fileID: 6810933406089656008}
+  <IsStunned>k__BackingField: 0
   m_groundCollider: {fileID: 2944477528441326517}
   m_hitDetection: {fileID: 5175685187729410427}
 --- !u!1 &1573202368456442075
@@ -11278,8 +11279,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.5465814, y: 0.07396042, z: 0.2863016}
-  m_Center: {x: -0.004060209, y: 0, z: 0.0069856644}
+  m_Size: {x: 0.5465814, y: 0.07396042, z: 0.4273882}
+  m_Center: {x: -0.004060209, y: 0, z: -0.00014019012}
 --- !u!1 &8170022774669464445
 GameObject:
   m_ObjectHideFlags: 0

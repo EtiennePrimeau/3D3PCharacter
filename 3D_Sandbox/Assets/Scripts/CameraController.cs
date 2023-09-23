@@ -33,9 +33,9 @@ public class CameraController : MonoBehaviour
         RotateAroundObjectHorizontal();
         RotateAroundObjectVertical();
 
-
         transform.position = Vector3.Lerp(transform.position, m_targetPosition, m_lerpF);
 
+        HardSetCameraZRotation();
         MoveCameraInFrontOfObstructionsFUpdate();
     }
     void CalculateDistance()
@@ -107,6 +107,13 @@ public class CameraController : MonoBehaviour
 
 
     }
+
+    private void HardSetCameraZRotation()
+    {
+        transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y, 0.0f);
+
+    }
+
     void MoveCameraInFrontOfObstructionsFUpdate()
     {
         int layerMask = 1 << 8;

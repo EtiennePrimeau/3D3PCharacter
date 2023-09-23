@@ -8,6 +8,8 @@ using UnityEngine;
 public class CharacterController : MonoBehaviour
 {
     [field: SerializeField] public Camera Camera { get; private set; }
+    [field: SerializeField] public Rigidbody Rb { get; private set; }
+    [field: SerializeField] private Animator Animator { get; set; }
     [field: SerializeField] public float AccelerationValue { get; private set; } = 20.0f;
     [field: SerializeField] public float JumpAccelerationValue { get; private set; } = 300.0f;
     [field: SerializeField] public float SlowedDownAccelerationValue { get; private set; } = 7.0f;
@@ -15,8 +17,9 @@ public class CharacterController : MonoBehaviour
     [field: SerializeField] public float LateralMaxVelocity { get; private set; } = 4.0f;
     [field: SerializeField] public float BackwardMaxVelocity { get; private set; } = 2.0f;
     [field: SerializeField] public float SlowingVelocity { get; private set; } = 0.97f;
-    [field: SerializeField] public Rigidbody Rb { get; private set; }
-    [field: SerializeField] private Animator Animator { get; set; }
+
+    public const float MAX_NO_DAMAGE_FALL = 5.0f;
+    [field: SerializeField] public bool IsStunned { get; private set; } = false; // not serfld
 
     // /////////////////
     public Vector3 ForwardVectorOnFloor { get; private set; }
@@ -40,6 +43,8 @@ public class CharacterController : MonoBehaviour
         m_possibleStates.Add(new JumpState());
         m_possibleStates.Add(new HitState());
         m_possibleStates.Add(new InAirState());
+        m_possibleStates.Add(new AttackState());
+        m_possibleStates.Add(new StunnedState());
     }
 
     // Start is called before the first frame update
@@ -67,8 +72,22 @@ public class CharacterController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        MatchYRotationWithCameraYRotation();
+        
         m_currentState.OnFixedUpdate();
 
+    }
+
+    private void MatchYRotationWithCameraYRotation()
+    {
+        Vector3 target = new Vector3(transform.position.x - Camera.transform.position.x, transform.position.y, transform.position.z - Camera.transform.position.z);
+
+        Debug.DrawRay(transform.position, target, Color.red);
+        
+        Quaternion rotation = Quaternion.LookRotation(target, Vector3.up);
+        Quaternion cappedRotation = Quaternion.Euler(0.0f,rotation.eulerAngles.y, 0.0f);
+
+        Rb.transform.rotation = cappedRotation;
     }
 
     private void SetForwardVectorFromGroundNormal()
@@ -145,6 +164,21 @@ public class CharacterController : MonoBehaviour
     public bool HasBeenHit()
     {
         return m_hitDetection.HasBeenHit;
+    }
+
+    public bool HasBeenStunned()
+    {
+        return m_hitDetection.HasBeenStunned || IsStunned;
+    }
+
+    public void SetIsStunnedToFalse()
+    {
+        IsStunned = false;
+    }
+
+    public void SetIsStunnedToTrue()
+    {
+        IsStunned = true;
     }
 
     public void UpdateAnimatorValues(Vector2 movement) // UpdateAnimatorMovementValues

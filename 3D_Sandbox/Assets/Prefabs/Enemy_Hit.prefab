@@ -1335,7 +1335,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3369840704045298408}
   - component: {fileID: 3816552939268167003}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: HitBox
   m_TagString: EnemyHit
   m_Icon: {fileID: 0}
@@ -1351,7 +1351,7 @@ Transform:
   m_GameObject: {fileID: 1297182384921850008}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.184, y: 1.032, z: 1.025}
+  m_LocalPosition: {x: 0.184, y: 0.956, z: 1.025}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1372,14 +1372,14 @@ CapsuleCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.28267142
+  m_Radius: 0.35090888
   m_Height: 1.1031538
   m_Direction: 2
-  m_Center: {x: 0.101650625, y: -0.11567798, z: -0.0063964725}
+  m_Center: {x: 0.101650625, y: -0.0474405, z: -0.0063964725}
 --- !u!1 &1306465780743981841
 GameObject:
   m_ObjectHideFlags: 0
