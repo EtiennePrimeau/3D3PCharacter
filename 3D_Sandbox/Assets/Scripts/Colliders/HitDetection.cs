@@ -5,7 +5,7 @@ public class HitDetection : MonoBehaviour
     public bool HasBeenHit { get; private set; } = false;
     public bool HasBeenStunned { get; private set; } = false;
 
-    private const float HIT_EXIT_TIMER = 0.01f;
+    private const float HIT_EXIT_TIMER = 0.5f;
     private float m_currentTimer = 0.0f;
     private bool m_activeTimer = false;
 
@@ -36,7 +36,7 @@ public class HitDetection : MonoBehaviour
                 HasBeenHit = false;
                 HasBeenStunned = false;
                 m_activeTimer = false;
-                Debug.Log("Timer done");
+                Debug.Log("Hit timer done");
                 return;
             }
 

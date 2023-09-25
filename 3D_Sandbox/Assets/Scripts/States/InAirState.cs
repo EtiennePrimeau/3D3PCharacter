@@ -2,15 +2,26 @@ using UnityEngine;
 
 public class InAirState : CharacterState
 {
+    private const float GROUNDCHECK_DELAY_TIMER = 0.5f;
+    private float m_currentGCDelayTimer = 0.0f;
+
+
+    private float m_highestPositionY;
+
+
     public override void OnEnter()
     {
         Debug.Log("Entering InAirState");
+
+        m_currentGCDelayTimer = GROUNDCHECK_DELAY_TIMER;
+        m_highestPositionY = m_stateMachine.Rb.transform.position.y;
 
     }
 
     public override void OnFixedUpdate()
     {
         AddForceFromInputs();
+        CheckForFallDamage();
     }
 
     private void AddForceFromInputs()
@@ -41,8 +52,29 @@ public class InAirState : CharacterState
                 ForceMode.Acceleration);
     }
 
+    private void CheckForFallDamage()
+    {
+        //Record y position
+        float currentY = m_stateMachine.Rb.transform.position.y;
+        //if y goes up, keep recording
+        if (currentY > m_highestPositionY)
+        {
+            m_highestPositionY = currentY;
+            return;
+        }
+        //if y goes down, record difference between highestY and currentY
+        float differenceY = m_highestPositionY - currentY;
+        //if difference is more than MaxFall, SetIsStunnedToTrue
+        if (differenceY >= m_stateMachine.MaxNoDamageFall)
+        {
+            m_stateMachine.SetIsStunnedToTrue();
+            Debug.Log("Fall damage");
+        }
+    }
+
     public override void OnUpdate()
     {
+        m_currentGCDelayTimer -= Time.deltaTime;
     }
 
     public override void OnExit()
@@ -60,6 +92,12 @@ public class InAirState : CharacterState
     }
     public override bool CanExit()
     {
-        return m_stateMachine.IsInContactWithFloor();
+        if (m_currentGCDelayTimer <= 0)
+        {
+            return m_stateMachine.IsInContactWithFloor() ||
+            m_stateMachine.HasBeenHit() ||
+            m_stateMachine.HasBeenStunned();
+        }
+        return false;
     }
 }

@@ -7,13 +7,13 @@ public class JumpState : CharacterState
     private const float GROUNDCHECK_DELAY_TIMER = 0.5f;
     private float m_currentGCDelayTimer = 0.0f;
 
-    //private const float HIGHEST_NO_DAMAGE_FALL = 
     private float m_highestPositionY;
 
     public override void OnEnter()
     {
         Debug.Log("Entering JumpState");
 
+        m_stateMachine.Rb.velocity *= 0;
         m_stateMachine.Rb.AddForce(Vector3.up * m_stateMachine.JumpAccelerationValue,
                 ForceMode.Acceleration); //TODO: fonction dans le stateMachine 
 
@@ -70,7 +70,7 @@ public class JumpState : CharacterState
         //if y goes down, record difference between highestY and currentY
         float differenceY = m_highestPositionY - currentY;
         //if difference is more than MaxFall, SetIsStunnedToTrue
-        if (differenceY >= CharacterController.MAX_NO_DAMAGE_FALL)
+        if (differenceY >= m_stateMachine.MaxNoDamageFall)
         {
             m_stateMachine.SetIsStunnedToTrue();
             Debug.Log("Fall damage");

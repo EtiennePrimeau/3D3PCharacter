@@ -6,13 +6,16 @@ public class StunnedState : CharacterState
     private const float STUNNED_DELAY_TIMER = 1.0f;
     private float m_currentStunnedDelayTimer = 0.0f;
 
+    private bool m_hasTriggeredAnimation = false;
+
     public override void OnEnter()
     {
         Debug.Log("Entering StunnedState");
 
         m_currentStunnedDelayTimer = STUNNED_DELAY_TIMER;
-
+        m_hasTriggeredAnimation = false;
         //Trigger animation
+        //m_stateMachine.TriggerIsStunnedAnimation();
     }
 
     public override void OnFixedUpdate()
@@ -21,7 +24,16 @@ public class StunnedState : CharacterState
 
     public override void OnUpdate()
     {
-        m_currentStunnedDelayTimer -= Time.deltaTime;
+        if (m_stateMachine.IsInContactWithFloor())
+        {
+            m_currentStunnedDelayTimer -= Time.deltaTime;
+            if (m_hasTriggeredAnimation == false)
+            {
+                Debug.Log("Triggering Stunned Animation - Fall Damage");
+                m_stateMachine.TriggerIsStunnedAnimation();
+                m_hasTriggeredAnimation = true;
+            }
+        }
     }
 
     public override void OnExit()

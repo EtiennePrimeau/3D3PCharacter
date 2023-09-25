@@ -17,15 +17,14 @@ public class CharacterController : MonoBehaviour
     [field: SerializeField] public float LateralMaxVelocity { get; private set; } = 4.0f;
     [field: SerializeField] public float BackwardMaxVelocity { get; private set; } = 2.0f;
     [field: SerializeField] public float SlowingVelocity { get; private set; } = 0.97f;
-
-    public const float MAX_NO_DAMAGE_FALL = 5.0f;
-    [field: SerializeField] public bool IsStunned { get; private set; } = false; // not serfld
+    [field: SerializeField] public float MaxNoDamageFall { get; private set; } = 10.0f;
 
     // /////////////////
     public Vector3 ForwardVectorOnFloor { get; private set; }
     public Vector3 ForwardVectorForPlayer { get; private set; }
     public Vector3 RightVectorOnFloor { get; private set; }
     public Vector3 RightVectorForPlayer { get; private set; }
+    public bool IsStunned { get; private set; } = false; 
 
     // /////////////////
 
@@ -212,6 +211,15 @@ public class CharacterController : MonoBehaviour
         Animator.SetTrigger("GettingHit");
     }
 
+    public void TriggerIsAttackingAnimation()
+    {
+        Animator.SetTrigger("IsAttacking");
+    }
+
+    public void TriggerIsStunnedAnimation()
+    {
+        Animator.SetTrigger("IsStunned");
+    }
 
     private void SetTouchingGroundAnimationBool()
     {
