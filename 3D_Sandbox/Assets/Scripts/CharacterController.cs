@@ -65,6 +65,11 @@ public class CharacterController : MonoBehaviour
 
         SetIsGroundedAnimationBool();
         SetTouchingGroundAnimationBool();
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Application.Quit();
+        }
     }
 
     private void FixedUpdate()
