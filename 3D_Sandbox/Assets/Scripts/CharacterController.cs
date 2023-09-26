@@ -7,6 +7,7 @@ public class CharacterController : MonoBehaviour
     [field: SerializeField] public Camera Camera { get; private set; }
     [field: SerializeField] public Rigidbody Rb { get; private set; }
     [field: SerializeField] private Animator Animator { get; set; }
+    [field: SerializeField] public SphereCollider HitBox { get; private set; }
     [field: SerializeField] public float AccelerationValue { get; private set; } = 20.0f;
     [field: SerializeField] public float JumpAccelerationValue { get; private set; } = 320.0f;
     [field: SerializeField] public float SlowedDownAccelerationValue { get; private set; } = 7.0f;

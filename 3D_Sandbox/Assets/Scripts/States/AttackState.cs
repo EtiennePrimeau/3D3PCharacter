@@ -10,6 +10,7 @@ public class AttackState : CharacterState
     {
         Debug.Log("Entering AttackState");
 
+        m_stateMachine.HitBox.enabled = true;
         m_currentAttackDelayTimer = ATTACK_DELAY_TIMER;
 
         m_stateMachine.TriggerIsAttackingAnimation();
@@ -55,6 +56,8 @@ public class AttackState : CharacterState
     public override void OnExit()
     {
         Debug.Log("Exiting AttackState");
+
+        m_stateMachine.HitBox.enabled = false;
     }
 
     public override bool CanEnter(IState currentState)
