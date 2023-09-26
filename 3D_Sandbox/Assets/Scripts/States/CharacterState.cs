@@ -1,7 +1,4 @@
 
-
-
-
 public abstract class CharacterState : IState
 {
 

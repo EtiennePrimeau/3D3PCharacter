@@ -2000,13 +2000,13 @@ MonoBehaviour:
   <Rb>k__BackingField: {fileID: 8121768423090973350}
   <Animator>k__BackingField: {fileID: 6810933406089656008}
   <AccelerationValue>k__BackingField: 20
-  <JumpAccelerationValue>k__BackingField: 300
+  <JumpAccelerationValue>k__BackingField: 320
   <SlowedDownAccelerationValue>k__BackingField: 7
   <ForwardMaxVelocity>k__BackingField: 6
   <LateralMaxVelocity>k__BackingField: 4
   <BackwardMaxVelocity>k__BackingField: 2
   <SlowingVelocity>k__BackingField: 0.97
-  <IsStunned>k__BackingField: 0
+  <MaxNoDamageFall>k__BackingField: 10
   m_groundCollider: {fileID: 2944477528441326517}
   m_hitDetection: {fileID: 5175685187729410427}
 --- !u!1 &1573202368456442075
@@ -9985,7 +9985,7 @@ Animator:
   m_GameObject: {fileID: 7627707449351412991}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 503415fc3fea44f7bb0eebf41e58e8be, type: 3}
-  m_Controller: {fileID: 9100000, guid: 1df353dc31e94b6489283eeb39b0730d, type: 2}
+  m_Controller: {fileID: 9100000, guid: be734b959aa06b5438df74889a9c964e, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

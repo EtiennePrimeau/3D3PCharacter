@@ -8,8 +8,8 @@ public class EnemyStun : MonoBehaviour
     private const float MAX_TIMER = 2.0f;
     private float m_timer;
 
-    public float m_activationTime = 1.5f;
-    public float m_deactivationTime = 1.0f;
+    private float m_activationTime = 1.5f;
+    private float m_deactivationTime = 1.0f;
 
     // Start is called before the first frame update
     void Start()
@@ -33,10 +33,6 @@ public class EnemyStun : MonoBehaviour
         {
             SphereColliderTrigger.enabled = false;
         }
-        //else if (m_timer <= m_deactivationTime)
-        //{
-        //    SphereColliderTrigger.enabled = false;
-        //}
 
         Animator.SetFloat("timer", m_timer);
         m_timer -= Time.deltaTime;

@@ -12,7 +12,6 @@ public class AttackState : CharacterState
 
         m_currentAttackDelayTimer = ATTACK_DELAY_TIMER;
 
-        //Trigger animation
         m_stateMachine.TriggerIsAttackingAnimation();
     }
 

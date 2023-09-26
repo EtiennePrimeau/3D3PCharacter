@@ -54,17 +54,14 @@ public class InAirState : CharacterState
 
     private void CheckForFallDamage()
     {
-        //Record y position
         float currentY = m_stateMachine.Rb.transform.position.y;
-        //if y goes up, keep recording
         if (currentY > m_highestPositionY)
         {
             m_highestPositionY = currentY;
             return;
         }
-        //if y goes down, record difference between highestY and currentY
+        
         float differenceY = m_highestPositionY - currentY;
-        //if difference is more than MaxFall, SetIsStunnedToTrue
         if (differenceY >= m_stateMachine.MaxNoDamageFall)
         {
             m_stateMachine.SetIsStunnedToTrue();

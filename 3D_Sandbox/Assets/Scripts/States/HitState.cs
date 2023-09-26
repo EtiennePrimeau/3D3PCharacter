@@ -14,7 +14,7 @@ public class HitState : CharacterState
         m_currentStateTimer = STATE_EXIT_TIMER;
 
         Vector3 hitDir = new Vector3(-1, 0, 0);
-        m_stateMachine.Rb.AddForce(hitDir * 100, ForceMode.Impulse); //Could be in enemy
+        m_stateMachine.Rb.AddForce(hitDir * 100, ForceMode.Impulse);
 
         m_stateMachine.TriggerGettingHitAnimation();
     }

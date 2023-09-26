@@ -62,12 +62,6 @@ public class CameraController : MonoBehaviour
 
     void RotateAroundObjectHorizontal()
     {
-        //Version réactive
-        //float currentAngleX = Input.GetAxis("Mouse X") * m_rotationSpeed;
-        //transform.RotateAround(m_objectToLookAt.position, m_objectToLookAt.up, currentAngleX);
-
-
-        //Version lerped
         float currentAngleX = Input.GetAxis("Mouse X") * m_rotationSpeed;
         m_lerpedAngleX = Mathf.Lerp(m_lerpedAngleX, currentAngleX, m_lerpF);
 
@@ -96,22 +90,17 @@ public class CameraController : MonoBehaviour
             return;
         }
 
-        //Version lerped   
         m_lerpedAngleY = Mathf.Lerp(m_lerpedAngleY, currentAngleY, m_lerpF);
 
-        //À vérifier aulieu du early return
         if (comparisonAngle > m_clampingXRotationValues.x && comparisonAngle < m_clampingXRotationValues.y)
         {
             transform.RotateAround(m_objectToLookAt.position, transform.right, m_lerpedAngleY);
         }
-
-
     }
 
     private void HardSetCameraZRotation()
     {
         transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y, 0.0f);
-
     }
 
     void MoveCameraInFrontOfObstructionsFUpdate()

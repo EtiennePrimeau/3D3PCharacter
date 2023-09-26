@@ -14,8 +14,6 @@ public class StunnedState : CharacterState
 
         m_currentStunnedDelayTimer = STUNNED_DELAY_TIMER;
         m_hasTriggeredAnimation = false;
-        //Trigger animation
-        //m_stateMachine.TriggerIsStunnedAnimation();
     }
 
     public override void OnFixedUpdate()

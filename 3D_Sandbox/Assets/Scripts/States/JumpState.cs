@@ -9,6 +9,7 @@ public class JumpState : CharacterState
 
     private float m_highestPositionY;
 
+    private Vector2 m_jumpHeight;
     public override void OnEnter()
     {
         Debug.Log("Entering JumpState");
@@ -21,12 +22,20 @@ public class JumpState : CharacterState
         m_highestPositionY = m_stateMachine.Rb.transform.position.y;
 
         m_stateMachine.TriggerJumpAnimation();
+
+        m_jumpHeight.x = m_stateMachine.transform.position.y;
+        m_jumpHeight.y = m_stateMachine.transform.position.y;
     }
 
     public override void OnFixedUpdate()
     {
         AddForceFromInputs();
         CheckForFallDamage();
+
+        if (m_stateMachine.transform.position.y > m_jumpHeight.y)
+        {
+            m_jumpHeight.y = m_stateMachine.transform.position.y;
+        }
     }
 
     private void AddForceFromInputs()
@@ -59,17 +68,14 @@ public class JumpState : CharacterState
 
     private void CheckForFallDamage()
     {
-        //Record y position
         float currentY = m_stateMachine.Rb.transform.position.y;
-        //if y goes up, keep recording
         if (currentY > m_highestPositionY)
         {
             m_highestPositionY = currentY;
             return;
         }
-        //if y goes down, record difference between highestY and currentY
+
         float differenceY = m_highestPositionY - currentY;
-        //if difference is more than MaxFall, SetIsStunnedToTrue
         if (differenceY >= m_stateMachine.MaxNoDamageFall)
         {
             m_stateMachine.SetIsStunnedToTrue();
@@ -85,6 +91,9 @@ public class JumpState : CharacterState
     public override void OnExit()
     {
         Debug.Log("Exiting JumpState");
+
+        float height = m_jumpHeight.y - m_jumpHeight.x;
+        //Debug.Log("Jump: " + height);
     }
 
     public override bool CanEnter(IState currentState)
