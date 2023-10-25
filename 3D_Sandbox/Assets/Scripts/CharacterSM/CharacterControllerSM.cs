@@ -2,12 +2,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class CharacterController : MonoBehaviour
+public class CharacterControllerSM : BaseStateMachine<CharacterState>
 {
     [field: SerializeField] public Camera Camera { get; private set; }
     [field: SerializeField] public Rigidbody Rb { get; private set; }
     [field: SerializeField] private Animator Animator { get; set; }
-    [field: SerializeField] public SphereCollider HitBox { get; private set; }
+    [field: SerializeField] public BoxCollider HitBox { get; private set; }
     [field: SerializeField] public float AccelerationValue { get; private set; } = 20.0f;
     [field: SerializeField] public float JumpAccelerationValue { get; private set; } = 320.0f;
     [field: SerializeField] public float SlowedDownAccelerationValue { get; private set; } = 7.0f;
@@ -26,14 +26,25 @@ public class CharacterController : MonoBehaviour
 
     // /////////////////
 
-    private CharacterState m_currentState;
-    private List<CharacterState> m_possibleStates;
+    //private CharacterState m_currentState;
+    //private List<CharacterState> m_possibleStates;
 
     [SerializeField] private GroundDetection m_groundCollider;
     [SerializeField] private HitDetection m_hitDetection;
 
 
-    private void Awake()
+    //private void Awake()
+    //{
+    //    m_possibleStates = new List<CharacterState>();
+    //    m_possibleStates.Add(new FreeState());
+    //    m_possibleStates.Add(new JumpState());
+    //    m_possibleStates.Add(new HitState());
+    //    m_possibleStates.Add(new InAirState());
+    //    m_possibleStates.Add(new AttackState());
+    //    m_possibleStates.Add(new StunnedState());
+    //}
+
+    protected override void CreatePossibleStates()
     {
         m_possibleStates = new List<CharacterState>();
         m_possibleStates.Add(new FreeState());
@@ -45,7 +56,7 @@ public class CharacterController : MonoBehaviour
     }
 
     // Start is called before the first frame update
-    void Start()
+    protected override void Start()
     {
         foreach (CharacterState state in m_possibleStates)
         {
@@ -56,10 +67,12 @@ public class CharacterController : MonoBehaviour
         m_currentState.OnEnter();
 
     }
-    void Update()
+    protected override void Update()
     {
-        m_currentState.OnUpdate();
-        TryTransitionningState();
+        //m_currentState.OnUpdate();
+        //TryTransitionningState();
+
+        base.Update();
 
         SetForwardVectorFromGroundNormal();
 
@@ -72,12 +85,12 @@ public class CharacterController : MonoBehaviour
         }
     }
 
-    private void FixedUpdate()
+    protected override void FixedUpdate()
     {
         MatchYRotationWithCameraYRotation();
-        
-        m_currentState.OnFixedUpdate();
 
+        //m_currentState.OnFixedUpdate();
+        base.FixedUpdate();
     }
 
     private void MatchYRotationWithCameraYRotation()
@@ -126,30 +139,30 @@ public class CharacterController : MonoBehaviour
         //Debug.DrawRay(transform.position, ForwardVectorForPlayer * 3.0f, Color.green);
     }
 
-    private void TryTransitionningState()
-    {
-        if (!m_currentState.CanExit())
-        {
-            return;
-        }
-        foreach (var state in m_possibleStates)
-        {
-            if (m_currentState == state)
-            {
-                continue;
-            }
-            if (state.CanEnter(m_currentState))
-            {
-                //Quitter state actuel
-                m_currentState.OnExit();
-                m_currentState = state;
-                //Rentrer dans state
-                m_currentState.OnEnter();
-                return;
-            }
-        }
-
-    }
+    //private void TryTransitionningState()
+    //{
+    //    if (!m_currentState.CanExit())
+    //    {
+    //        return;
+    //    }
+    //    foreach (var state in m_possibleStates)
+    //    {
+    //        if (m_currentState == state)
+    //        {
+    //            continue;
+    //        }
+    //        if (state.CanEnter(m_currentState))
+    //        {
+    //            //Quitter state actuel
+    //            m_currentState.OnExit();
+    //            m_currentState = state;
+    //            //Rentrer dans state
+    //            m_currentState.OnEnter();
+    //            return;
+    //        }
+    //    }
+    //
+    //}
 
     public bool IsInContactWithFloor()
     {
@@ -181,6 +194,11 @@ public class CharacterController : MonoBehaviour
     public void SetIsStunnedToTrue()
     {
         IsStunned = true;
+    }
+
+    public void HandleAttackHitbox(bool isEnabled)
+    {
+        HitBox.enabled = isEnabled;
     }
 
     public void UpdateAnimatorValues(Vector2 movement) // UpdateAnimatorMovementValues

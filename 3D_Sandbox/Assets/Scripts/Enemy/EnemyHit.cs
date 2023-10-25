@@ -20,16 +20,21 @@ public class EnemyHit : MonoBehaviour
         if (m_timer < -0.1f)
         {
             m_timer = MAX_TIMER;
-            CapsuleColliderTrigger.enabled = true;
             return;
-        }
-
-        if (m_timer <= 1.2f)
-        {
-            CapsuleColliderTrigger.enabled = false;
         }
 
         Animator.SetFloat("timer", m_timer);
         m_timer -= Time.deltaTime;
     }
+
+    public void ActivateCharacterAttackHitBox()
+    {
+        CapsuleColliderTrigger.enabled = true;
+    }
+
+    public void DeactivateCharacterAttackHitBox()
+    {
+        CapsuleColliderTrigger.enabled = false;
+    }
+
 }

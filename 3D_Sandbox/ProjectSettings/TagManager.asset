@@ -16,8 +16,8 @@ TagManager:
   - GroundCheck
   - Gameplay
   - EnvironmentObject
-  - 
-  - 
+  - HitBox
+  - MainCharacter
   - 
   - 
   - 

@@ -2,10 +2,15 @@
 public abstract class CharacterState : IState
 {
 
-    protected CharacterController m_stateMachine;
-    public void OnStart(CharacterController controller)
+    protected CharacterControllerSM m_stateMachine;
+    public void OnStart(CharacterControllerSM controller)
     {
         m_stateMachine = controller;
+    }
+
+    public void OnStart()
+    {
+        throw new System.NotImplementedException();
     }
 
     public virtual void OnEnter()
