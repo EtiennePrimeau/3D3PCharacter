@@ -1,46 +1,51 @@
 using UnityEngine;
 
-public class CinematicState : IState
+public class CinematicState : GameState
 {
 
     protected Camera m_camera;
+
+    //protected bool m_hasExitedCinematic = false;
+    //protected bool m_hasStartedCinematic = false;
+
+    //[field: SerializeField] public CharacterControllerSM CCSM { get; private set; }
 
     public CinematicState(Camera camera)
     {
         m_camera = camera;
     }
 
-    public bool CanEnter(IState currentState)
+    public override bool CanEnter(IState currentState)
     {
-        return Input.GetKeyDown(KeyCode.G);
+        return m_stateMachine.IsInCinematic;
     }
 
-    public bool CanExit()
+    public override bool CanExit()
     {
-        return Input.GetKeyDown(KeyCode.G);
+        return !m_stateMachine.IsInCinematic;
     }
 
-    public void OnEnter()
+    public override void OnEnter()
     {
         Debug.Log("Entering Cinematic State");
-        m_camera.enabled = true;
+        //m_hasStartedCinematic = false;
+        //m_camera.enabled = true;
+
+        m_stateMachine.CCSM.SetNonGameplayState(true);
     }
 
-    public void OnExit()
+    public override void OnExit()
     {
         Debug.Log("Exiting Cinematic State");
-        m_camera.enabled = false;
+        //m_hasExitedCinematic = false;
+        //m_camera.enabled = false;
     }
 
-    public void OnFixedUpdate()
+    public override void OnFixedUpdate()
     {
     }
 
-    public void OnStart()
-    {
-    }
-
-    public void OnUpdate()
+    public override void OnUpdate()
     {
     }
 }

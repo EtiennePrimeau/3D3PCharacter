@@ -16,13 +16,18 @@ public class CharacterControllerSM : BaseStateMachine<CharacterState>
     [field: SerializeField] public float BackwardMaxVelocity { get; private set; } = 2.0f;
     [field: SerializeField] public float SlowingVelocity { get; private set; } = 0.97f;
     [field: SerializeField] public float MaxNoDamageFall { get; private set; } = 10.0f;
+    [field: SerializeField] public float RotationSpeed { get; private set; } = 3.0f;
+    [field: SerializeField] public GameObject ObjectToLookAt { get; private set; }
+    [field: SerializeField] public GameObject MC { get; private set; }
 
     // /////////////////
     public Vector3 ForwardVectorOnFloor { get; private set; }
     public Vector3 ForwardVectorForPlayer { get; private set; }
     public Vector3 RightVectorOnFloor { get; private set; }
     public Vector3 RightVectorForPlayer { get; private set; }
-    public bool IsStunned { get; private set; } = false; 
+    public bool IsStunned { get; private set; } = false;
+
+    public bool IsInNonGameplay { get; private set; } = false;
 
     // /////////////////
 
@@ -47,6 +52,7 @@ public class CharacterControllerSM : BaseStateMachine<CharacterState>
     protected override void CreatePossibleStates()
     {
         m_possibleStates = new List<CharacterState>();
+        m_possibleStates.Add(new NonGameplayState());
         m_possibleStates.Add(new FreeState());
         m_possibleStates.Add(new JumpState());
         m_possibleStates.Add(new HitState());
@@ -87,23 +93,32 @@ public class CharacterControllerSM : BaseStateMachine<CharacterState>
 
     protected override void FixedUpdate()
     {
-        MatchYRotationWithCameraYRotation();
+        //MatchYRotationWithCameraYRotation();
+
+        RotatePlayer();
+
 
         //m_currentState.OnFixedUpdate();
         base.FixedUpdate();
     }
 
-    private void MatchYRotationWithCameraYRotation()
+    private void RotatePlayer()
     {
-        Vector3 target = new Vector3(transform.position.x - Camera.transform.position.x, transform.position.y, transform.position.z - Camera.transform.position.z);
-
-        Debug.DrawRay(transform.position, target, Color.red);
-        
-        Quaternion rotation = Quaternion.LookRotation(target, Vector3.up);
-        Quaternion cappedRotation = Quaternion.Euler(0.0f,rotation.eulerAngles.y, 0.0f);
-
-        Rb.transform.rotation = cappedRotation;
+        float currentAngleX = Input.GetAxis("Mouse X") * RotationSpeed;
+        MC.transform.RotateAround(ObjectToLookAt.transform.position, ObjectToLookAt.transform.up, currentAngleX);
     }
+
+    //private void MatchYRotationWithCameraYRotation()
+    //{
+    //    Vector3 target = new Vector3(transform.position.x - Camera.transform.position.x, transform.position.y, transform.position.z - Camera.transform.position.z);
+    //
+    //    Debug.DrawRay(transform.position, target, Color.red);
+    //    
+    //    Quaternion rotation = Quaternion.LookRotation(target, Vector3.up);
+    //    Quaternion cappedRotation = Quaternion.Euler(0.0f,rotation.eulerAngles.y, 0.0f);
+    //
+    //    Rb.transform.rotation = cappedRotation;
+    //}
 
     private void SetForwardVectorFromGroundNormal()
     {
@@ -127,11 +142,11 @@ public class CharacterControllerSM : BaseStateMachine<CharacterState>
         }
 
 
-        ForwardVectorOnFloor = Vector3.ProjectOnPlane(Camera.transform.forward, Vector3.up);
+        ForwardVectorOnFloor = Vector3.ProjectOnPlane(MC.transform.forward, Vector3.up);
         ForwardVectorForPlayer = Vector3.ProjectOnPlane(ForwardVectorOnFloor, hitNormal);
         ForwardVectorForPlayer = Vector3.Normalize(ForwardVectorForPlayer);
 
-        RightVectorOnFloor = Vector3.ProjectOnPlane(Camera.transform.right, Vector3.up);
+        RightVectorOnFloor = Vector3.ProjectOnPlane(MC.transform.right, Vector3.up);
         RightVectorForPlayer = Vector3.ProjectOnPlane(RightVectorOnFloor, hitNormal);
         RightVectorForPlayer = Vector3.Normalize(RightVectorForPlayer);
 
@@ -250,5 +265,10 @@ public class CharacterControllerSM : BaseStateMachine<CharacterState>
     private void SetIsGroundedAnimationBool()
     {
         Animator.SetBool("IsGrounded", IsInContactWithFloor());
+    }
+
+    public void SetNonGameplayState(bool value)
+    {
+        IsInNonGameplay = value;
     }
 }

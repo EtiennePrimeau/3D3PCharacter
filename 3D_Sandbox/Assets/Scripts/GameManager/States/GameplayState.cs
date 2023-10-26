@@ -1,46 +1,52 @@
 using UnityEngine;
 
-public class GameplayState : IState
+public class GameplayState : GameState
 {
 
     protected Camera m_camera;
+
+    //private bool m_hasStartedGameplay = false;
+    //private bool m_hasExitedGameplay = false;
+
+    //[field: SerializeField] public CharacterControllerSM CCSM { get; private set; }
+
 
     public GameplayState(Camera camera)
     {
         m_camera = camera;
     }
 
-    public bool CanEnter(IState currentState)
+    public override bool CanEnter(IState currentState)
     {
-        return Input.GetKeyDown(KeyCode.G);
+        return !m_stateMachine.IsInCinematic;
     }
 
-    public bool CanExit()
+    public override bool CanExit()
     {
-        return Input.GetKeyDown(KeyCode.G);
+        return m_stateMachine.IsInCinematic;
     }
 
-    public void OnEnter()
+    public override void OnEnter()
     {
         Debug.Log("Entering Gameplay State");
-        m_camera.enabled = true;
+        //m_hasStartedGameplay = false;
+        m_camera.gameObject.SetActive(true);
+
+        m_stateMachine.CCSM.SetNonGameplayState(false);
     }
 
-    public void OnExit()
+    public override void OnExit()
     {
         Debug.Log("Exiting Gameplay State");
-        m_camera.enabled = false;
+        //m_hasExitedGameplay = false;
+        //m_camera.enabled = false;
     }
 
-    public void OnFixedUpdate()
+    public override void OnFixedUpdate()
     {
     }
 
-    public void OnStart()
-    {
-    }
-
-    public void OnUpdate()
+    public override void OnUpdate()
     {
     }
 }

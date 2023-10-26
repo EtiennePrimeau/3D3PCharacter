@@ -14,7 +14,7 @@ public class EnemyGetHit : MonoBehaviour
         if (other.gameObject.GetComponent<Hitbox>() != null)
         {
             //Rb.AddForce(-PlayerHitBoxDirection.HitBoxDirection * 10, ForceMode.Impulse);
-            Rb.AddForce(Sm.ForwardVectorOnFloor * 10, ForceMode.Impulse);
+            Rb.AddForce(Sm.ForwardVectorOnFloor * 100, ForceMode.Impulse);
         }
     }
 

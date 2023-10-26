@@ -155,7 +155,8 @@ public class FreeState : CharacterState
             currentState is HitState ||
             currentState is InAirState ||
             currentState is StunnedState ||
-            currentState is AttackState)
+            currentState is AttackState ||
+            currentState is NonGameplayState)
         {
             return m_stateMachine.IsInContactWithFloor();
         }

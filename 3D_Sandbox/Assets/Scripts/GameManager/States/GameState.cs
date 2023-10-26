@@ -1,13 +1,13 @@
 
-public abstract class CharacterState : IState
+public abstract class GameState : IState
 {
 
-    protected CharacterControllerSM m_stateMachine;
-    public void OnStart(CharacterControllerSM controller)
+    protected GameManagerSM m_stateMachine;
+    public void OnStart(GameManagerSM controller)
     {
         m_stateMachine = controller;
     }
-
+    
     public void OnStart()
     {
     }
@@ -32,6 +32,7 @@ public abstract class CharacterState : IState
     {
         return true;
     }
+
     public virtual bool CanExit()
     {
         return true;
