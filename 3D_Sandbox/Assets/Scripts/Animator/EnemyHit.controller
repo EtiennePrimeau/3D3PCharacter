@@ -112,7 +112,8 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: de1a60b80fcf42a286dae3911e439576, type: 3}
+  m_Motion: {fileID: 1827226128182048838, guid: 457419818f714e3cad32152bfe28b189,
+    type: 3}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -159,7 +160,7 @@ AnimatorStateMachine:
     m_Position: {x: 370, y: 110, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 5486137188618287972}
-    m_Position: {x: 370, y: -30, z: 0}
+    m_Position: {x: 370, y: -40, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []

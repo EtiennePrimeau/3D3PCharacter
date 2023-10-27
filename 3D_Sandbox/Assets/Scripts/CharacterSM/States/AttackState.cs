@@ -12,6 +12,7 @@ public class AttackState : CharacterState
 
         //m_stateMachine.HitBox.enabled = true;
         m_currentAttackDelayTimer = ATTACK_DELAY_TIMER;
+        m_stateMachine.HandleAttackHitbox(true);
 
         m_stateMachine.TriggerIsAttackingAnimation();
     }

@@ -1,44 +1,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Hitbox : MonoBehaviour
-{
-	/*
-	bool canHit
-	bool canReceiveHit
-	AgentType agentType = Count
-	list<AgentType> affectedAgentTypes
-
-
-	enum AgentType
-	Ally
-	Enemy
-	Neutral
-	Count
-
-	OnTriggerEnter
-	var otherHitbox = other.GetComponent<Hitbox>()
-	if otherHitbox == null
-		return
-
-	//Mettre dans une autre fonction
-	if canHit && other.canReceiveHit
-		if affectedAgentTypes.Contains(otherHitbox.agentType)
-			otherHitbox.GetHit()
-	*/
-
-	[field:SerializeField] protected bool CanHit { get; set; }
-	[field:SerializeField] protected bool CanReceiveHit { get; set; }
-	[field: SerializeField] protected EAgentType AgentType { get; set; } = EAgentType.Count;
-	[field: SerializeField] protected List<EAgentType> AffectedAgents { get; set; }
-
-	protected enum EAgentType
+	public enum EAgentType
 	{
 		Ally,
 		Enemy,
 		Neutral,
 		Count
 	}
+public class Hitbox : MonoBehaviour
+{
+
+	[field:SerializeField] protected bool CanHit { get; set; }
+	[field:SerializeField] protected bool CanReceiveHit { get; set; }
+	[field: SerializeField] protected EAgentType AgentType { get; set; } = EAgentType.Count;
+	[field: SerializeField] protected List<EAgentType> AffectedAgents { get; set; }
+	[field: SerializeField] protected FXManager FxManager { get; set; }
+
 
     /*private void OnTriggerEnter(Collider other)
     {
@@ -75,6 +53,12 @@ public class Hitbox : MonoBehaviour
         {
             Debug.Log(gameObject.name + " has hit " + otherHitbox);
 
+			Vector3 contactPoint = collision.GetContact(0).point;
+			FxManager.OnHit(AgentType, contactPoint);
+
+			
+
+			//Instantiate(GameObject.CreatePrimitive(PrimitiveType.Sphere), contactPoint, Quaternion.identity);
         }
 
     }

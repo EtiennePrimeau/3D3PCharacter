@@ -9,22 +9,23 @@ public class HitDetection : MonoBehaviour
     private float m_currentTimer = 0.0f;
     private bool m_activeTimer = false;
 
-    private void OnTriggerEnter(Collider other)
+    private void OnCollisionEnter(Collision collision)
     {
-        if (other.gameObject.GetComponentInParent<EnemyHit>() != null && HasBeenHit == false)
+        if (collision.gameObject.GetComponentInParent<EnemyHit>() != null && HasBeenHit == false)
         {
             //Debug.Log("Enemy Hit");
             HasBeenHit = true;
             m_activeTimer = true;
             m_currentTimer = HIT_EXIT_TIMER;
         }
-        if (other.gameObject.GetComponentInParent<EnemyStun>() != null && HasBeenStunned == false)
+        if (collision.gameObject.GetComponentInParent<EnemyStun>() != null && HasBeenStunned == false)
         {
             //Debug.Log("Enemy Stun");
             HasBeenStunned = true;
             m_activeTimer = true;
             m_currentTimer = HIT_EXIT_TIMER;
         }
+
     }
 
     private void Update()

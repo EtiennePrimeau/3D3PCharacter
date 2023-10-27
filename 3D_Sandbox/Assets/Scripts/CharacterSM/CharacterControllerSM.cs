@@ -27,7 +27,7 @@ public class CharacterControllerSM : BaseStateMachine<CharacterState>
     public Vector3 RightVectorForPlayer { get; private set; }
     public bool IsStunned { get; private set; } = false;
 
-    public bool IsInNonGameplay { get; private set; } = false;
+    public bool IsInNonGameplay { get; private set; } = true;
 
     // /////////////////
 
@@ -52,8 +52,8 @@ public class CharacterControllerSM : BaseStateMachine<CharacterState>
     protected override void CreatePossibleStates()
     {
         m_possibleStates = new List<CharacterState>();
-        m_possibleStates.Add(new NonGameplayState());
         m_possibleStates.Add(new FreeState());
+        m_possibleStates.Add(new NonGameplayState());
         m_possibleStates.Add(new JumpState());
         m_possibleStates.Add(new HitState());
         m_possibleStates.Add(new InAirState());
@@ -104,8 +104,11 @@ public class CharacterControllerSM : BaseStateMachine<CharacterState>
 
     private void RotatePlayer()
     {
-        float currentAngleX = Input.GetAxis("Mouse X") * RotationSpeed;
-        MC.transform.RotateAround(ObjectToLookAt.transform.position, ObjectToLookAt.transform.up, currentAngleX);
+        if (m_currentState is not NonGameplayState)
+        {
+            float currentAngleX = Input.GetAxis("Mouse X") * RotationSpeed;
+            MC.transform.RotateAround(ObjectToLookAt.transform.position, ObjectToLookAt.transform.up, currentAngleX);
+        }
     }
 
     //private void MatchYRotationWithCameraYRotation()
