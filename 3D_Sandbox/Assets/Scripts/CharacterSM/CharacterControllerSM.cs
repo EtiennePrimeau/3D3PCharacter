@@ -31,29 +31,15 @@ public class CharacterControllerSM : BaseStateMachine<CharacterState>
 
     // /////////////////
 
-    //private CharacterState m_currentState;
-    //private List<CharacterState> m_possibleStates;
-
     [SerializeField] private GroundDetection m_groundCollider;
     [SerializeField] private HitDetection m_hitDetection;
 
 
-    //private void Awake()
-    //{
-    //    m_possibleStates = new List<CharacterState>();
-    //    m_possibleStates.Add(new FreeState());
-    //    m_possibleStates.Add(new JumpState());
-    //    m_possibleStates.Add(new HitState());
-    //    m_possibleStates.Add(new InAirState());
-    //    m_possibleStates.Add(new AttackState());
-    //    m_possibleStates.Add(new StunnedState());
-    //}
-
     protected override void CreatePossibleStates()
     {
         m_possibleStates = new List<CharacterState>();
-        m_possibleStates.Add(new FreeState());
         m_possibleStates.Add(new NonGameplayState());
+        m_possibleStates.Add(new FreeState());
         m_possibleStates.Add(new JumpState());
         m_possibleStates.Add(new HitState());
         m_possibleStates.Add(new InAirState());
@@ -61,7 +47,6 @@ public class CharacterControllerSM : BaseStateMachine<CharacterState>
         m_possibleStates.Add(new StunnedState());
     }
 
-    // Start is called before the first frame update
     protected override void Start()
     {
         foreach (CharacterState state in m_possibleStates)
@@ -75,9 +60,6 @@ public class CharacterControllerSM : BaseStateMachine<CharacterState>
     }
     protected override void Update()
     {
-        //m_currentState.OnUpdate();
-        //TryTransitionningState();
-
         base.Update();
 
         SetForwardVectorFromGroundNormal();
@@ -93,12 +75,7 @@ public class CharacterControllerSM : BaseStateMachine<CharacterState>
 
     protected override void FixedUpdate()
     {
-        //MatchYRotationWithCameraYRotation();
-
         RotatePlayer();
-
-
-        //m_currentState.OnFixedUpdate();
         base.FixedUpdate();
     }
 
@@ -110,18 +87,6 @@ public class CharacterControllerSM : BaseStateMachine<CharacterState>
             MC.transform.RotateAround(ObjectToLookAt.transform.position, ObjectToLookAt.transform.up, currentAngleX);
         }
     }
-
-    //private void MatchYRotationWithCameraYRotation()
-    //{
-    //    Vector3 target = new Vector3(transform.position.x - Camera.transform.position.x, transform.position.y, transform.position.z - Camera.transform.position.z);
-    //
-    //    Debug.DrawRay(transform.position, target, Color.red);
-    //    
-    //    Quaternion rotation = Quaternion.LookRotation(target, Vector3.up);
-    //    Quaternion cappedRotation = Quaternion.Euler(0.0f,rotation.eulerAngles.y, 0.0f);
-    //
-    //    Rb.transform.rotation = cappedRotation;
-    //}
 
     private void SetForwardVectorFromGroundNormal()
     {
@@ -152,35 +117,7 @@ public class CharacterControllerSM : BaseStateMachine<CharacterState>
         RightVectorOnFloor = Vector3.ProjectOnPlane(MC.transform.right, Vector3.up);
         RightVectorForPlayer = Vector3.ProjectOnPlane(RightVectorOnFloor, hitNormal);
         RightVectorForPlayer = Vector3.Normalize(RightVectorForPlayer);
-
-        //Forward direction independent from camera height
-        //Debug.DrawRay(transform.position, ForwardVectorForPlayer * 3.0f, Color.green);
     }
-
-    //private void TryTransitionningState()
-    //{
-    //    if (!m_currentState.CanExit())
-    //    {
-    //        return;
-    //    }
-    //    foreach (var state in m_possibleStates)
-    //    {
-    //        if (m_currentState == state)
-    //        {
-    //            continue;
-    //        }
-    //        if (state.CanEnter(m_currentState))
-    //        {
-    //            //Quitter state actuel
-    //            m_currentState.OnExit();
-    //            m_currentState = state;
-    //            //Rentrer dans state
-    //            m_currentState.OnEnter();
-    //            return;
-    //        }
-    //    }
-    //
-    //}
 
     public bool IsInContactWithFloor()
     {
@@ -219,7 +156,7 @@ public class CharacterControllerSM : BaseStateMachine<CharacterState>
         HitBox.enabled = isEnabled;
     }
 
-    public void UpdateAnimatorValues(Vector2 movement) // UpdateAnimatorMovementValues
+    public void UpdateAnimatorMovementValues(Vector2 movement)
     {
         //Envoyer la velocity prise ds les states a cette fonction
         //pour qu'elle envoie à l'Animator

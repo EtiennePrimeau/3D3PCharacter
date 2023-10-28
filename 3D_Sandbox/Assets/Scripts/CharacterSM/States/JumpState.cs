@@ -4,19 +4,20 @@ using UnityEngine;
 
 public class JumpState : CharacterState
 {
-    private const float GROUNDCHECK_DELAY_TIMER = 0.5f;
+    private const float GROUNDCHECK_DELAY_TIMER = 1.0f;
     private float m_currentGCDelayTimer = 0.0f;
-
     private float m_highestPositionY;
 
     private Vector2 m_jumpHeight;
+
+
     public override void OnEnter()
     {
         Debug.Log("Entering JumpState");
 
         m_stateMachine.Rb.velocity *= 0;
         m_stateMachine.Rb.AddForce(Vector3.up * m_stateMachine.JumpAccelerationValue,
-                ForceMode.Acceleration); //TODO: fonction dans le stateMachine 
+                ForceMode.Acceleration); 
 
         m_currentGCDelayTimer = GROUNDCHECK_DELAY_TIMER;
         m_highestPositionY = m_stateMachine.Rb.transform.position.y;
@@ -25,6 +26,8 @@ public class JumpState : CharacterState
 
         m_jumpHeight.x = m_stateMachine.transform.position.y;
         m_jumpHeight.y = m_stateMachine.transform.position.y;
+
+        FXManager.Instance.PlaySound(EFXType.McJump, m_stateMachine.transform.position);
     }
 
     public override void OnFixedUpdate()
@@ -94,6 +97,12 @@ public class JumpState : CharacterState
 
         float height = m_jumpHeight.y - m_jumpHeight.x;
         //Debug.Log("Jump: " + height);
+
+        if (m_stateMachine.IsInContactWithFloor())
+        {
+            FXManager.Instance.PlaySound(EFXType.McLand, m_stateMachine.transform.position);
+        }
+
     }
 
     public override bool CanEnter(IState currentState)
@@ -112,6 +121,11 @@ public class JumpState : CharacterState
     {
         if (m_currentGCDelayTimer <= 0)
         {
+            //if (m_stateMachine.IsInContactWithFloor())
+            //{
+            //    FXManager.Instance.PlaySound(EFXType.McLand, m_stateMachine.transform.position);
+            //}
+
             return m_stateMachine.IsInContactWithFloor() || 
                 m_stateMachine.HasBeenHit() || 
                 m_stateMachine.HasBeenStunned();

@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class GameManagerSM : BaseStateMachine<GameState>
 {
+    public static GameManagerSM Instance { get; private set; }
+    
     [SerializeField] protected Camera m_gameplayCamera;
     [SerializeField] protected Camera m_cinematicCamera;
     [SerializeField] protected AnimationCurve m_curve;
@@ -21,9 +23,22 @@ public class GameManagerSM : BaseStateMachine<GameState>
     {
         m_possibleStates = new List<GameState>();
 
-        m_possibleStates.Add(new GameplayState(m_gameplayCamera));
         m_possibleStates.Add(new CinematicState(m_cinematicCamera));
+        m_possibleStates.Add(new GameplayState(m_gameplayCamera));
 
+    }
+
+    protected override void Awake()
+    {
+        base.Awake();
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this);
+        }
+        else
+        {
+            Instance = this;
+        }
     }
 
     protected override void Start()

@@ -372,6 +372,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Slope15
       objectReference: {fileID: 0}
+    - target: {fileID: 3472008320485091515, guid: 0b3c08f0d7e120f4fa2e288c95c6cf90,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3472008320485091515, guid: 0b3c08f0d7e120f4fa2e288c95c6cf90,
+        type: 3}
+      propertyPath: m_TagString
+      value: CameraCollisionBug
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -598,7 +608,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_clampingCameraDistance: {x: 4, y: 10}
-  m_clampingXRotationValues: {x: 0, y: 40}
+  m_clampingXRotationValues: {x: 10, y: 50}
   m_vcam: {fileID: 130172340}
 --- !u!114 &130172344
 MonoBehaviour:
@@ -1535,6 +1545,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Slope50
       objectReference: {fileID: 0}
+    - target: {fileID: 3472008320485091515, guid: 0b3c08f0d7e120f4fa2e288c95c6cf90,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3472008320485091515, guid: 0b3c08f0d7e120f4fa2e288c95c6cf90,
+        type: 3}
+      propertyPath: m_TagString
+      value: CameraCollisionBug
+      objectReference: {fileID: 0}
     - target: {fileID: 7605989039343506383, guid: 0b3c08f0d7e120f4fa2e288c95c6cf90,
         type: 3}
       propertyPath: m_UseGravity
@@ -2349,6 +2369,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Slope30
       objectReference: {fileID: 0}
+    - target: {fileID: 3472008320485091515, guid: 0b3c08f0d7e120f4fa2e288c95c6cf90,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3472008320485091515, guid: 0b3c08f0d7e120f4fa2e288c95c6cf90,
+        type: 3}
+      propertyPath: m_TagString
+      value: CameraCollisionBug
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2780,6 +2810,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Slope25
+      objectReference: {fileID: 0}
+    - target: {fileID: 3472008320485091515, guid: 0b3c08f0d7e120f4fa2e288c95c6cf90,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3472008320485091515, guid: 0b3c08f0d7e120f4fa2e288c95c6cf90,
+        type: 3}
+      propertyPath: m_TagString
+      value: CameraCollisionBug
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3224,6 +3264,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Slope45
       objectReference: {fileID: 0}
+    - target: {fileID: 3472008320485091515, guid: 0b3c08f0d7e120f4fa2e288c95c6cf90,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3472008320485091515, guid: 0b3c08f0d7e120f4fa2e288c95c6cf90,
+        type: 3}
+      propertyPath: m_TagString
+      value: CameraCollisionBug
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3313,6 +3363,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Slope35
       objectReference: {fileID: 0}
+    - target: {fileID: 3472008320485091515, guid: 0b3c08f0d7e120f4fa2e288c95c6cf90,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3472008320485091515, guid: 0b3c08f0d7e120f4fa2e288c95c6cf90,
+        type: 3}
+      propertyPath: m_TagString
+      value: CameraCollisionBug
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3340,7 +3400,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!320 &750945152
 PlayableDirector:
   m_ObjectHideFlags: 0
@@ -3799,7 +3859,7 @@ MonoBehaviour:
   CameraCollisionFilter:
     serializedVersion: 2
     m_Bits: 256
-  IgnoreTag: 
+  IgnoreTag: CameraCollisionBug
   CameraRadius: 0.2
   DampingIntoCollision: 0
   DampingFromCollision: 2
@@ -4698,11 +4758,11 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 89f935015cc98724a862a586326fdf21, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.372
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -4805,7 +4865,18 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 9930d5b4be15bb04c9d0a6fa0d7e6b2e, type: 3}
     go: {fileID: 6893358688775583844, guid: 6651a93d2413fff499982ce8d59d8b46, type: 3}
     shakeIntensity: 5
-  m_gmSM: {fileID: 1961792153}
+  - type: 2
+    clip: {fileID: 8300000, guid: 2c5292ba5cf254919a6b9e2b18e04f49, type: 3}
+    go: {fileID: 3266147442631538481, guid: 742f397517d510648b82fdad85b273c4, type: 3}
+    shakeIntensity: 0
+  - type: 3
+    clip: {fileID: 8300000, guid: ffb159a21c8a04135a5616979c828fab, type: 3}
+    go: {fileID: 3266147442631538481, guid: 742f397517d510648b82fdad85b273c4, type: 3}
+    shakeIntensity: 0
+  - type: 4
+    clip: {fileID: 8300000, guid: cabfae866cab347928b74b7d0ca6bfa9, type: 3}
+    go: {fileID: 3266147442631538481, guid: 742f397517d510648b82fdad85b273c4, type: 3}
+    shakeIntensity: 0
 --- !u!1 &1308580375
 GameObject:
   m_ObjectHideFlags: 3
@@ -5023,6 +5094,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3472008320485091515, guid: 0b3c08f0d7e120f4fa2e288c95c6cf90,
+        type: 3}
+      propertyPath: m_TagString
+      value: CameraCollisionBug
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -5475,6 +5551,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Slope60
       objectReference: {fileID: 0}
+    - target: {fileID: 3472008320485091515, guid: 0b3c08f0d7e120f4fa2e288c95c6cf90,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3472008320485091515, guid: 0b3c08f0d7e120f4fa2e288c95c6cf90,
+        type: 3}
+      propertyPath: m_TagString
+      value: CameraCollisionBug
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5734,6 +5820,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Slope20
+      objectReference: {fileID: 0}
+    - target: {fileID: 3472008320485091515, guid: 0b3c08f0d7e120f4fa2e288c95c6cf90,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3472008320485091515, guid: 0b3c08f0d7e120f4fa2e288c95c6cf90,
+        type: 3}
+      propertyPath: m_TagString
+      value: CameraCollisionBug
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -6084,6 +6180,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Slope40
       objectReference: {fileID: 0}
+    - target: {fileID: 3472008320485091515, guid: 0b3c08f0d7e120f4fa2e288c95c6cf90,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3472008320485091515, guid: 0b3c08f0d7e120f4fa2e288c95c6cf90,
+        type: 3}
+      propertyPath: m_TagString
+      value: CameraCollisionBug
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6123,7 +6229,6 @@ MonoBehaviour:
   <CanReceiveHit>k__BackingField: 0
   <AgentType>k__BackingField: 1
   <AffectedAgents>k__BackingField: 00000000
-  <FxManager>k__BackingField: {fileID: 1266833306}
 --- !u!1 &1688635210 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7627707449351412991, guid: 0e06af950b627eb46adb4169af266b14,
@@ -6779,7 +6884,6 @@ MonoBehaviour:
   <CanReceiveHit>k__BackingField: 0
   <AgentType>k__BackingField: 0
   <AffectedAgents>k__BackingField: 01000000
-  <FxManager>k__BackingField: {fileID: 1266833306}
 --- !u!54 &2017126964
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -7678,7 +7782,6 @@ MonoBehaviour:
   <CanReceiveHit>k__BackingField: 1
   <AgentType>k__BackingField: 1
   <AffectedAgents>k__BackingField: 
-  <FxManager>k__BackingField: {fileID: 1266833306}
 --- !u!1 &2130332328
 GameObject:
   m_ObjectHideFlags: 0
@@ -8604,7 +8707,6 @@ MonoBehaviour:
   <CanReceiveHit>k__BackingField: 1
   <AgentType>k__BackingField: 0
   <AffectedAgents>k__BackingField: 
-  <FxManager>k__BackingField: {fileID: 1266833306}
 --- !u!114 &2935424376460853270
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8910,6 +9012,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2713040407267834289, guid: 0e06af950b627eb46adb4169af266b14,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 0.25662345
+      objectReference: {fileID: 0}
+    - target: {fileID: 2713040407267834289, guid: 0e06af950b627eb46adb4169af266b14,
+        type: 3}
+      propertyPath: m_Center.y
+      value: 0.028088149
       objectReference: {fileID: 0}
     - target: {fileID: 3057737119870375919, guid: 0e06af950b627eb46adb4169af266b14,
         type: 3}

@@ -15,6 +15,8 @@ public class GroundDetection : MonoBehaviour
         if (!IsGrounded)
         {
             //Debug.Log("Touching ground");
+            //FXManager.Instance.PlaySound(EFXType.McLand, transform.position);
+
         }
         //Debug.Log("IsGrounded");
         IsGrounded = true;

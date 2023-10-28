@@ -4,8 +4,6 @@ public class InAirState : CharacterState
 {
     private const float GROUNDCHECK_DELAY_TIMER = 0.5f;
     private float m_currentGCDelayTimer = 0.0f;
-
-
     private float m_highestPositionY;
 
 
@@ -77,6 +75,11 @@ public class InAirState : CharacterState
     public override void OnExit()
     {
         Debug.Log("Exiting InAirState");
+
+        if (m_stateMachine.IsInContactWithFloor())
+        {
+            FXManager.Instance.PlaySound(EFXType.McLand, m_stateMachine.transform.position);
+        }
     }
 
     public override bool CanEnter(IState currentState)

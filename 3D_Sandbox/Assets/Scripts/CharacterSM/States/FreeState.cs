@@ -141,7 +141,7 @@ public class FreeState : CharacterState
     {
         float forwardComponent = Vector3.Dot(m_stateMachine.Rb.velocity, m_stateMachine.ForwardVectorForPlayer); 
         float lateralComponent = Vector3.Dot(m_stateMachine.Rb.velocity, m_stateMachine.RightVectorForPlayer); 
-        m_stateMachine.UpdateAnimatorValues(new Vector2(lateralComponent, forwardComponent)); 
+        m_stateMachine.UpdateAnimatorMovementValues(new Vector2(lateralComponent, forwardComponent)); 
     }
 
     public override void OnExit()
