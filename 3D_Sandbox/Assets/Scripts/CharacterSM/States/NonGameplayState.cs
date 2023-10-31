@@ -15,7 +15,6 @@ public class NonGameplayState : CharacterState
     {
     }
 
-
     public override void OnExit()
     {
         Debug.Log("Exiting NonGameplayState");

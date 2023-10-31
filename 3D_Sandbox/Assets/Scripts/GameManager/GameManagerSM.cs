@@ -12,12 +12,8 @@ public class GameManagerSM : BaseStateMachine<GameState>
     [SerializeField] protected CinemachineVirtualCamera m_cinematicCamera;
     [SerializeField] protected AnimationCurve m_curve;
     [SerializeField] protected PlayableDirector m_timeline;
-
-    public bool IsInCinematic { get; private set; } = false;
-
-    //[field: SerializeField] public CharacterControllerSM CCSM { get; private set; }
-    //public CharacterControllerSM CCSM;
     [field: SerializeField] public CinemachineImpulseSource ImpulseSource { get; private set; }
+    public bool IsInCinematic { get; private set; } = false;
 
     private float m_currentTimeScaleDuration = 1.0f;
     private bool m_isSlowingDownTime = false;
@@ -49,9 +45,6 @@ public class GameManagerSM : BaseStateMachine<GameState>
 
     protected override void Start()
     {
-        //m_impulseSource = GetComponent<CinemachineImpulseSource>();
-        //CCSM = CharacterControllerSM.Instance;
-
         foreach (GameState state in m_possibleStates)
         {
             state.OnStart(this);
@@ -59,15 +52,13 @@ public class GameManagerSM : BaseStateMachine<GameState>
         
         m_currentState = m_possibleStates[0];
         m_currentState.OnEnter();
-        
-        //base.Start(); //
     }
     
     protected override void Update()
     {
         base.Update();
 
-        if (Input.GetKey(KeyCode.N))
+        if (Input.GetKey(KeyCode.N) && m_currentState is GameplayState)
         {
             SceneManager.LoadScene("SampleScene", LoadSceneMode.Single);
 
@@ -83,7 +74,6 @@ public class GameManagerSM : BaseStateMachine<GameState>
         {
             SlowDownTime();
         }
-
     }
 
     public void SetCinematicBoolToTrue()
@@ -99,13 +89,11 @@ public class GameManagerSM : BaseStateMachine<GameState>
 
     public void DisableGravity()
     {
-        //CCSM.Rb.useGravity = false;
         CharacterControllerSM.Instance.Rb.useGravity = false;
     }
 
     public void EnableGravity()
     {
-        //CCSM.Rb.useGravity = true;
         CharacterControllerSM.Instance.Rb.useGravity = true;
     }
 

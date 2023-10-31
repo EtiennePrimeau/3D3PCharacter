@@ -10,7 +10,6 @@ public class AttackState : CharacterState
     {
         Debug.Log("Entering AttackState");
 
-        //m_stateMachine.HitBox.enabled = true;
         m_currentAttackDelayTimer = ATTACK_DELAY_TIMER;
         m_stateMachine.HandleAttackHitbox(true);
 
@@ -58,7 +57,6 @@ public class AttackState : CharacterState
     {
         Debug.Log("Exiting AttackState");
 
-        //m_stateMachine.HitBox.enabled = false;
         m_stateMachine.HandleAttackHitbox(false);
     }
 

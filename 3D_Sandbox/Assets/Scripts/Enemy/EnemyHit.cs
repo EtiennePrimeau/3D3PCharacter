@@ -8,13 +8,11 @@ public class EnemyHit : MonoBehaviour
     private const float MAX_TIMER = 2.0f; 
     private float m_timer;
 
-// Start is called before the first frame update
     void Start()
     {
         m_timer = MAX_TIMER;
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (m_timer < -0.1f)

@@ -1,7 +1,5 @@
 using UnityEngine;
 
-
-
 public class FreeState : CharacterState
 {
     private bool m_isMovingForward = false;
@@ -18,20 +16,15 @@ public class FreeState : CharacterState
         AddForceFromInputs();
 
         CapMaximumSpeed();
-
-
-        //Debug.Log(m_stateMachine.Rb.velocity.magnitude);
     }
 
     private void AddForceFromInputs()
     {
-
         Vector2 inputs = Vector2.zero;
 
         m_isMovingForward = false;
         m_isMovingLateral = false;
         m_isMovingBackward = false;
-
 
         if (Input.GetKey(KeyCode.W))
         {
@@ -64,8 +57,6 @@ public class FreeState : CharacterState
                 ForceMode.Acceleration);
         m_stateMachine.Rb.AddForce(inputs.x * m_stateMachine.RightVectorForPlayer * m_stateMachine.AccelerationValue,
                 ForceMode.Acceleration);
-
-        //Debug.Log(m_stateMachine.Rb.velocity);
     }
 
     private void CapMaximumSpeed()

@@ -3,13 +3,7 @@ using UnityEngine;
 
 public class CinematicState : GameState
 {
-
     protected CinemachineVirtualCamera m_camera;
-
-    //protected bool m_hasExitedCinematic = false;
-    //protected bool m_hasStartedCinematic = false;
-
-    //[field: SerializeField] public CharacterControllerSM CCSM { get; private set; }
 
     public CinematicState(CinemachineVirtualCamera camera)
     {
@@ -29,18 +23,13 @@ public class CinematicState : GameState
     public override void OnEnter()
     {
         Debug.Log("Entering Cinematic State");
-        //m_hasStartedCinematic = false;
-        //m_camera.enabled = true;
 
-        //m_stateMachine.CCSM.SetNonGameplayState(true);
         CharacterControllerSM.Instance.SetNonGameplayState(true);
     }
 
     public override void OnExit()
     {
         Debug.Log("Exiting Cinematic State");
-        //m_hasExitedCinematic = false;
-        //m_camera.enabled = false;
     }
 
     public override void OnFixedUpdate()

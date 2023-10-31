@@ -8,6 +8,7 @@ public class VCcameraController : MonoBehaviour
     [SerializeField] private CinemachineVirtualCamera m_vcam;
 
     private float m_targetDistance = 6.0f;
+    private float m_lerpF = 0.1f;
 
     void Start()
     {
@@ -52,6 +53,6 @@ public class VCcameraController : MonoBehaviour
             m_targetDistance += mouseInput;
         }
 
-        m_vcam.GetCinemachineComponent<Cinemachine3rdPersonFollow>().CameraDistance = Mathf.Lerp(distance, m_targetDistance, 0.1f);
+        m_vcam.GetCinemachineComponent<Cinemachine3rdPersonFollow>().CameraDistance = Mathf.Lerp(distance, m_targetDistance, m_lerpF);
     }
 }

@@ -1,6 +1,4 @@
-using Unity.VisualScripting;
 using UnityEngine;
-
 
 public class JumpState : CharacterState
 {
@@ -96,13 +94,11 @@ public class JumpState : CharacterState
         Debug.Log("Exiting JumpState");
 
         float height = m_jumpHeight.y - m_jumpHeight.x;
-        //Debug.Log("Jump: " + height);
 
         if (m_stateMachine.IsInContactWithFloor())
         {
             FXManager.Instance.PlaySound(EFXType.McLand, m_stateMachine.transform.position);
         }
-
     }
 
     public override bool CanEnter(IState currentState)
@@ -121,11 +117,6 @@ public class JumpState : CharacterState
     {
         if (m_currentGCDelayTimer <= 0)
         {
-            //if (m_stateMachine.IsInContactWithFloor())
-            //{
-            //    FXManager.Instance.PlaySound(EFXType.McLand, m_stateMachine.transform.position);
-            //}
-
             return m_stateMachine.IsInContactWithFloor() || 
                 m_stateMachine.HasBeenHit() || 
                 m_stateMachine.HasBeenStunned();

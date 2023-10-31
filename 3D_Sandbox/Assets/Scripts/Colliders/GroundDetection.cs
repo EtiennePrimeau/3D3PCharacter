@@ -12,19 +12,11 @@ public class GroundDetection : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (!IsGrounded)
-        {
-            //Debug.Log("Touching ground");
-            //FXManager.Instance.PlaySound(EFXType.McLand, transform.position);
-
-        }
-        //Debug.Log("IsGrounded");
         IsGrounded = true;
     }
 
     private void OnTriggerExit(Collider other)
     {
-        //Debug.Log("Leaving ground");
         IsGrounded = false;
         TouchingGround = false;
     }

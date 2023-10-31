@@ -5,8 +5,6 @@ public class HitState : CharacterState
     private const float STATE_EXIT_TIMER = 1.0f;
     private float m_currentStateTimer = 0.0f;
 
-
-
     public override void OnEnter()
     {
         Debug.Log("Entering HitState");
@@ -22,7 +20,6 @@ public class HitState : CharacterState
     public override void OnUpdate()
     {
         m_currentStateTimer -= Time.deltaTime;
-        //Debug.Log(m_currentStateTimer);
     }
 
     public override void OnFixedUpdate()

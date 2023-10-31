@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
+    // UNUSED // NO CINEMACHINE VERSION
+
     [SerializeField] private Transform m_objectToLookAt;
     [SerializeField] private Vector3 m_offset;
     private Vector3 m_targetPosition;

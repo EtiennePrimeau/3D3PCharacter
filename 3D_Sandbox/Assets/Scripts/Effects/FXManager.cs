@@ -13,12 +13,9 @@ public enum EFXType
 
 public class FXManager : MonoBehaviour
 {
-
-
     public static FXManager Instance { get; private set; }
 
     [SerializeField] private List<FXEvent> m_fXEventsList = new List<FXEvent>();
-    //[SerializeField] private GameManagerSM m_gmSM;
 
     private void Awake()
     {
@@ -40,7 +37,6 @@ public class FXManager : MonoBehaviour
         {
             case EAgentType.Ally:
                 PlayHitFX(m_fXEventsList[(int)EFXType.McHit], position);
-                //m_gmSM.SetSlowDownTimeBoolTrue();
                 GameManagerSM.Instance.SetSlowDownTimeBoolTrue();
                 break;
             case EAgentType.Enemy:
@@ -60,7 +56,6 @@ public class FXManager : MonoBehaviour
         var audioSource = newObject.GetComponent<AudioSource>();
         audioSource.PlayOneShot(fx.clip);
 
-        //m_gmSM.GenerateCameraShake(fx.shakeIntensity);
         GameManagerSM.Instance.GenerateCameraShake(fx.shakeIntensity);
     }
 

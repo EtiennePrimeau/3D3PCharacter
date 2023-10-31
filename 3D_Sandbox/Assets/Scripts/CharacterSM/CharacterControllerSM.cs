@@ -114,17 +114,8 @@ public class CharacterControllerSM : BaseStateMachine<CharacterState>
 
         if (Physics.Raycast(transform.position, vDiff, out hit, vDiffMagnitude, layerMask))
         {
-            //Objet détecté
-            //Debug.DrawRay(transform.position, vDiff.normalized * hit.distance, Color.red);
-
             hitNormal = hit.normal;
-            //Debug.DrawRay(hit.point, hitNormal.normalized * 5.0f, Color.blue);
         }
-        else
-        {
-            //Debug.DrawRay(transform.position, vDiff, Color.black);
-        }
-
 
         ForwardVectorOnFloor = Vector3.ProjectOnPlane(MC.transform.forward, Vector3.up);
         ForwardVectorForPlayer = Vector3.ProjectOnPlane(ForwardVectorOnFloor, hitNormal);
@@ -137,13 +128,11 @@ public class CharacterControllerSM : BaseStateMachine<CharacterState>
 
     public bool IsInContactWithFloor()
     {
-        //Debug.Log("CC: " + m_groundCollider.IsGrounded);
         return m_groundCollider.IsGrounded;
     }
 
     public bool IsTouchingGround()
     {
-        //Debug.Log(m_groundCollider.TouchingGround);
         return m_groundCollider.TouchingGround;
     }
 
@@ -174,9 +163,6 @@ public class CharacterControllerSM : BaseStateMachine<CharacterState>
 
     public void UpdateAnimatorMovementValues(Vector2 movement)
     {
-        //Envoyer la velocity prise ds les states a cette fonction
-        //pour qu'elle envoie à l'Animator
-
         float lateralMovement = movement.x / LateralMaxVelocity;
         float forwardMovement = movement.y;
 

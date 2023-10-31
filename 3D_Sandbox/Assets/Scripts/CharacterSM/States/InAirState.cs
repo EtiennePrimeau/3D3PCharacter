@@ -13,7 +13,6 @@ public class InAirState : CharacterState
 
         m_currentGCDelayTimer = GROUNDCHECK_DELAY_TIMER;
         m_highestPositionY = m_stateMachine.Rb.transform.position.y;
-
     }
 
     public override void OnFixedUpdate()

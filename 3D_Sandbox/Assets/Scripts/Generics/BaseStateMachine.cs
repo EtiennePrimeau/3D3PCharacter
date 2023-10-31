@@ -35,7 +35,6 @@ public abstract class BaseStateMachine<T> : MonoBehaviour where T : IState
 
     protected virtual void CreatePossibleStates()
     {
-        
     }
 
     protected void TryTransitionningState()

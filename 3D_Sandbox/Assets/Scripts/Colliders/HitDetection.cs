@@ -13,14 +13,12 @@ public class HitDetection : MonoBehaviour
     {
         if (collision.gameObject.GetComponentInParent<EnemyHit>() != null && HasBeenHit == false)
         {
-            //Debug.Log("Enemy Hit");
             HasBeenHit = true;
             m_activeTimer = true;
             m_currentTimer = HIT_EXIT_TIMER;
         }
         if (collision.gameObject.GetComponentInParent<EnemyStun>() != null && HasBeenStunned == false)
         {
-            //Debug.Log("Enemy Stun");
             HasBeenStunned = true;
             m_activeTimer = true;
             m_currentTimer = HIT_EXIT_TIMER;
@@ -37,7 +35,6 @@ public class HitDetection : MonoBehaviour
                 HasBeenHit = false;
                 HasBeenStunned = false;
                 m_activeTimer = false;
-                //Debug.Log("Hit timer done");
                 return;
             }
 
