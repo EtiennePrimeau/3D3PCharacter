@@ -1,9 +1,10 @@
+using Cinemachine;
 using UnityEngine;
 
 public class GameplayState : GameState
 {
 
-    protected Camera m_camera;
+    protected CinemachineVirtualCamera m_camera;
 
     //private bool m_hasStartedGameplay = false;
     //private bool m_hasExitedGameplay = false;
@@ -11,7 +12,7 @@ public class GameplayState : GameState
     //[field: SerializeField] public CharacterControllerSM CCSM { get; private set; }
 
 
-    public GameplayState(Camera camera)
+    public GameplayState(CinemachineVirtualCamera camera)
     {
         m_camera = camera;
     }
@@ -32,7 +33,8 @@ public class GameplayState : GameState
         //m_hasStartedGameplay = false;
         m_camera.gameObject.SetActive(true);
 
-        m_stateMachine.CCSM.SetNonGameplayState(false);
+        //m_stateMachine.CCSM.SetNonGameplayState(false);
+        CharacterControllerSM.Instance.SetNonGameplayState(false);
     }
 
     public override void OnExit()

@@ -1,18 +1,22 @@
 using Cinemachine;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.Playables;
 
 public class GameManagerSM : BaseStateMachine<GameState>
 {
     public static GameManagerSM Instance { get; private set; }
     
-    [SerializeField] protected Camera m_gameplayCamera;
-    [SerializeField] protected Camera m_cinematicCamera;
+    [SerializeField] protected CinemachineVirtualCamera m_gameplayCamera;
+    [SerializeField] protected CinemachineVirtualCamera m_cinematicCamera;
     [SerializeField] protected AnimationCurve m_curve;
+    [SerializeField] protected PlayableDirector m_timeline;
 
     public bool IsInCinematic { get; private set; } = false;
 
-    [field: SerializeField] public CharacterControllerSM CCSM { get; private set; }
+    //[field: SerializeField] public CharacterControllerSM CCSM { get; private set; }
+    //public CharacterControllerSM CCSM;
     [field: SerializeField] public CinemachineImpulseSource ImpulseSource { get; private set; }
 
     private float m_currentTimeScaleDuration = 1.0f;
@@ -30,10 +34,12 @@ public class GameManagerSM : BaseStateMachine<GameState>
 
     protected override void Awake()
     {
+        DontDestroyOnLoad(this.gameObject);
+
         base.Awake();
         if (Instance != null && Instance != this)
         {
-            Destroy(this);
+            Destroy(this.gameObject);
         }
         else
         {
@@ -44,7 +50,8 @@ public class GameManagerSM : BaseStateMachine<GameState>
     protected override void Start()
     {
         //m_impulseSource = GetComponent<CinemachineImpulseSource>();
-        
+        //CCSM = CharacterControllerSM.Instance;
+
         foreach (GameState state in m_possibleStates)
         {
             state.OnStart(this);
@@ -59,6 +66,13 @@ public class GameManagerSM : BaseStateMachine<GameState>
     protected override void Update()
     {
         base.Update();
+
+        if (Input.GetKey(KeyCode.N))
+        {
+            SceneManager.LoadScene("SampleScene", LoadSceneMode.Single);
+
+            m_timeline.Play();
+        }
     }
 
     protected override void FixedUpdate()
@@ -85,12 +99,14 @@ public class GameManagerSM : BaseStateMachine<GameState>
 
     public void DisableGravity()
     {
-        CCSM.Rb.useGravity = false;
+        //CCSM.Rb.useGravity = false;
+        CharacterControllerSM.Instance.Rb.useGravity = false;
     }
 
     public void EnableGravity()
     {
-        CCSM.Rb.useGravity = true;
+        //CCSM.Rb.useGravity = true;
+        CharacterControllerSM.Instance.Rb.useGravity = true;
     }
 
     public void GenerateCameraShake(float intensity)
@@ -116,5 +132,23 @@ public class GameManagerSM : BaseStateMachine<GameState>
     {
         m_isSlowingDownTime = true;
         m_currentTimeScaleDuration = 0.0f;
+    }
+
+    public void ResetCameraFollowAndLookAt()
+    {
+        var player = GameObject.FindWithTag("Player");
+    
+        m_gameplayCamera.m_Follow = player.transform;
+        m_gameplayCamera.m_LookAt = player.transform;
+        m_cinematicCamera.m_LookAt = player.transform;
+    
+        var dollyTrack = GameObject.FindWithTag("DollyTrack");
+    
+        m_cinematicCamera.m_Follow = dollyTrack.transform;
+    }
+
+    public void StopTimeline()
+    {
+        m_timeline.Stop();
     }
 }

@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class CharacterControllerSM : BaseStateMachine<CharacterState>
 {
+    public static CharacterControllerSM Instance { get; private set; }
+
     [field: SerializeField] public Camera Camera { get; private set; }
     [field: SerializeField] public Rigidbody Rb { get; private set; }
     [field: SerializeField] private Animator Animator { get; set; }
@@ -45,6 +47,20 @@ public class CharacterControllerSM : BaseStateMachine<CharacterState>
         m_possibleStates.Add(new InAirState());
         m_possibleStates.Add(new AttackState());
         m_possibleStates.Add(new StunnedState());
+    }
+
+    protected override void Awake()
+    {
+        base.Awake();
+    
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this);
+        }
+        else
+        {
+            Instance = this;
+        }
     }
 
     protected override void Start()
